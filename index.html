@@ -795,7 +795,7 @@ body {
     <div class="kpi-cell">
       <div class="kpi-num" style="color:#D3752E">160</div>
       <div class="kpi-label">Licitaciones anteriores auditadas</div>
-      <div class="kpi-sub">Rezagos 2023–2024 </div>
+      <div class="kpi-sub">Rezagos 2023–2024</div>
     </div>
   </div>
 </div>
@@ -1309,7 +1309,7 @@ body {
       <div class="card-title">Detalle por licitación</div>
       <table class="tbl">
         <thead>
-          <tr><th>Licitación</th><th class="n">Total</th><th class="n">Ingr. SYP</th><th class="n">Descarte</th><th class="n">% Desc.</th><th class="n">LISTO</th><th class="n">NO</th></tr>
+          <tr><th>Licitación</th><th class="n">Total</th><th class="n">Ingr. SYP</th><th class="n">Descarte</th><th class="n">LISTO</th><th class="n">NO</th></tr>
         </thead>
         <tbody>
           <tr>
@@ -1654,8 +1654,8 @@ function buildCharts() {
     cs['chart-pendientes'] = new Chart(document.getElementById('chart-pendientes'), {
       type:'doughnut',
       data:{
-        labels:['LISTO (56,9%)','OK (27,5%)','NO (8,1%)','Descarte (14,4%)'],
-        datasets:[{ data:[91,44,13,23], backgroundColor:['#6DAC3B','#4E7CDD','#BB0034','#D3752E'], borderWidth:3, borderColor:'#FFF' }]
+        labels:['LISTO (85.6%)','Descarte (14,4%)'],
+        datasets:[{ data:[137,23], backgroundColor:['#6DAC3B','#4E7CDD','#BB0034','#D3752E'], borderWidth:3, borderColor:'#FFF' }]
       },
       options:{
         cutout:'56%', responsive:true, maintainAspectRatio:false,
