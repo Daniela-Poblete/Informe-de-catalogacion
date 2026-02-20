@@ -723,6 +723,69 @@ body {
   .impact-panel { grid-template-columns: 1fr; }
   .hero h1 { font-size: 26px; }
 }
+/* ═══════════ NAV TOGGLE (MÓVIL) ═══════════ */
+.nav-toggle{
+  display:none;                 /* oculto en desktop */
+  margin-left:auto;
+  width:40px;
+  height:40px;
+  border-radius:6px;
+  border:1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color:#fff;
+  font-size:20px;
+  font-weight:900;
+  line-height:1;
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+}
+
+/* estado focus accesible */
+.nav-toggle:focus{
+  outline: 3px solid rgba(241,182,52,0.45);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  /* muestra el botón en móvil */
+  .nav-toggle{ display:inline-flex; }
+
+  /* el meta lo empujamos abajo si hace falta */
+  .header-inner{ position:relative; }
+
+  /* nav en modo desplegable */
+  .site-nav{
+    display:none;               /* cerrado por defecto */
+    position:absolute;
+    left: var(--pad-x);
+    right: var(--pad-x);
+    top: 62px;
+    background: var(--negro);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 12px;
+    padding: 8px;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 9999;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  }
+  .site-nav.is-open{ display:flex; }
+
+  /* botones dentro del menú desplegable */
+  .site-nav .nav-btn{
+    width:100%;
+    text-align:left;
+    padding: 12px 14px;
+    border-radius: 8px;
+  }
+
+  /* el “Corte” lo dejamos al final del header */
+  .header-meta{
+    margin-left:auto;
+    opacity:0.65;
+  }
+}
 </style>
 </head>
 <body>
@@ -746,7 +809,7 @@ body {
   ☰
 </button>
     <!-- Navegación -->
-    <nav class="site-nav">
+    <nav class="site-nav" id="siteNav">
       <button class="nav-btn active" onclick="showPage('resumen',this)">Resumen</button>
       <button class="nav-btn" onclick="showPage('licitacion',this)">Licitación 2026-1</button>
       <button class="nav-btn" onclick="showPage('bcn',this)">Donación BCN</button>
@@ -1701,7 +1764,37 @@ function buildCharts() {
     });
   }
 }
+/* ── Menú móvil (hamburguesa) ── */
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('siteNav');
+  if (!btn || !nav) return;
 
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // cerrar si tocas fuera del menú
+  document.addEventListener('click', (e) => {
+    if (!nav.classList.contains('is-open')) return;
+    const clickedInside = nav.contains(e.target) || btn.contains(e.target);
+    if (!clickedInside) {
+      nav.classList.remove('is-open');
+      btn.setAttribute('aria-expanded','false');
+    }
+  });
+});
+
+/* ── Cierra el menú al navegar ── */
+const _showPage = showPage;
+showPage = function(id, btn){
+  const nav = document.getElementById('siteNav');
+  const toggle = document.querySelector('.nav-toggle');
+  if (nav) nav.classList.remove('is-open');
+  if (toggle) toggle.setAttribute('aria-expanded','false');
+  _showPage(id, btn);
+};
 buildCharts();
 </script>
 </body>
