@@ -6,12 +6,29 @@
 <title>Informe de Impacto · Área de Catalogación · Duoc UC</title>
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
 <style>
+
 /* ═══════════════════════════════════════════════════
    SISTEMA CROMÁTICO DUOC UC — Manual de Marca 2024
+   ═══════════════════════════════════════════════════
+   Primarios corporativos
+   · Amarillo  Pantone 1235C  →  #F1B634
+   · Negro     Process Black  →  #1A1A1A
+   · Negro 80%               →  #333333
+
+   Colores web/RRSS (pág. 25 del manual)
+   · #1A1A1A  #FFFFFF  #666666  #F1B634
+   · #4E7CDD (azul)   #6DAC3B (verde)   #BB0034 (rojo)
+   · #D3752E (naranja) #9B50C0 (púrpura) #7EBFE6 (celeste)
+   · #009F9A (turquesa) #C6D420 (verde claro)
+
+   Tipografías digitales (pág. 18-19 del manual)
+   · Merriweather — títulos / call to action
+   · Lato        — cuerpo de texto / bajadas
    ═══════════════════════════════════════════════════ */
+
 :root {
+  /* Brand primario */
   --amarillo:   #F1B634;
   --amarillo-d: #c9920e;
   --negro:      #1A1A1A;
@@ -22,6 +39,7 @@
   --gris-bg:    #F5F5F5;
   --gris-borde: #E2E2E2;
 
+  /* Paleta web del manual */
   --azul:       #4E7CDD;
   --azul-s:     #D9E5F9;
   --verde:      #6DAC3B;
@@ -35,9 +53,11 @@
   --celeste:    #7EBFE6;
   --turquesa:   #009F9A;
 
+  /* Tipografías del manual */
   --font-title: 'Merriweather', Georgia, serif;
   --font-body:  'Lato', Arial, sans-serif;
 
+  /* Espaciado base */
   --max-w: 1280px;
   --pad-x: 40px;
 }
@@ -52,47 +72,12 @@ body {
   min-height: 100vh;
 }
 
-/* ✅ FIX RESPONSIVE GLOBAL (GRÁFICOS + TABLAS) */
-img, video { max-width: 100%; height: auto; }
-
-/* Chart.js: fuerza que el canvas se adapte al contenedor */
-canvas { display: block; max-width: 100%; }
-
-/* Contenedores de gráficos: siempre 100% ancho */
-.chart-wrap { position: relative; width: 100%; }
-.chart-wrap canvas { width: 100% !important; height: 100% !important; }
-
-/* Donuts: tamaño consistente y centrado, pero responsive */
-.donut-row canvas,
-.g13 canvas {
-  width: 220px !important;
-  height: 220px !important;
-  margin: 0 auto;
-}
-
-/* ✅ TABLAS RESPONSIVE: scroll horizontal suave en móvil */
-.tbl {
-  width: 100%;
-  border-collapse: collapse;
-
-  /* Clave: permite scroll horizontal sin romper el layout */
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-
-  /* Si la tabla es muy ancha, se desplaza en móvil */
-  min-width: 680px;
-}
-.tbl thead { background: var(--negro); }
-.tbl thead, .tbl tbody { display: table; width: 100%; table-layout: auto; }
-.tbl tr { display: table; width: 100%; table-layout: fixed; }
-.tbl th, .tbl td { white-space: nowrap; }
-
-/* Una sombra sutil para indicar que hay scroll */
-.tbl { border-radius: 6px; }
-
 /* ═══════════ BARRA SUPERIOR INSTITUCIONAL ═══════════ */
-.topbar { background: var(--amarillo); height: 6px; width: 100%; }
+.topbar {
+  background: var(--amarillo);
+  height: 6px;
+  width: 100%;
+}
 
 /* ═══════════ HEADER PRINCIPAL ═══════════ */
 .site-header {
@@ -112,7 +97,19 @@ canvas { display: block; max-width: 100%; }
   gap: 28px;
 }
 
-.duoc-logo { display: flex; align-items: center; gap: 0; flex-shrink: 0; text-decoration: none; }
+/* Logo Duoc UC — recreado fielmente del manual */
+.duoc-logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+.logo-svg-wrap {
+  display: flex;
+  align-items: center;
+}
+/* Logotipo SVG inline fiel al manual */
 .logo-wordmark {
   font-family: var(--font-body);
   font-weight: 900;
@@ -146,7 +143,12 @@ canvas { display: block; max-width: 100%; }
 }
 
 /* Navegación por pestañas */
-.site-nav { display: flex; gap: 2px; flex: 1; justify-content: center; }
+.site-nav {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
 .nav-btn {
   font-family: var(--font-body);
   font-size: 11px;
@@ -162,8 +164,14 @@ canvas { display: block; max-width: 100%; }
   transition: all 0.18s ease;
   white-space: nowrap;
 }
-.nav-btn:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75); }
-.nav-btn.active { background: var(--amarillo); color: var(--negro); }
+.nav-btn:hover {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.75);
+}
+.nav-btn.active {
+  background: var(--amarillo);
+  color: var(--negro);
+}
 
 .header-meta {
   font-family: var(--font-body);
@@ -176,17 +184,32 @@ canvas { display: block; max-width: 100%; }
   flex-shrink: 0;
 }
 
-/* ═══════════ HERO ═══════════ */
-.hero { background: var(--amarillo); overflow: hidden; position: relative; }
+/* ═══════════ HERO — franja amarilla del manual ═══════════ */
+.hero {
+  background: var(--amarillo);
+  overflow: hidden;
+  position: relative;
+}
+/* Elemento geométrico de la marca — círculos decorativos */
 .hero-geo {
-  position: absolute; right: -80px; top: -60px;
-  width: 380px; height: 380px; border-radius: 50%;
-  background: rgba(255,255,255,0.14); pointer-events: none;
+  position: absolute;
+  right: -80px;
+  top: -60px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.14);
+  pointer-events: none;
 }
 .hero-geo2 {
-  position: absolute; right: 120px; bottom: -120px;
-  width: 240px; height: 240px; border-radius: 50%;
-  background: rgba(0,0,0,0.05); pointer-events: none;
+  position: absolute;
+  right: 120px;
+  bottom: -120px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.05);
+  pointer-events: none;
 }
 .hero-inner {
   max-width: var(--max-w);
@@ -224,7 +247,10 @@ canvas { display: block; max-width: 100%; }
   margin-bottom: 14px;
   max-width: 700px;
 }
-.hero h1 em { font-style: italic; font-weight: 300; }
+.hero h1 em {
+  font-style: italic;
+  font-weight: 300;
+}
 .hero-desc {
   font-family: var(--font-body);
   font-size: 15px;
@@ -234,8 +260,11 @@ canvas { display: block; max-width: 100%; }
   line-height: 1.75;
 }
 
-/* ═══════════ BANDA KPI ═══════════ */
-.kpi-band { background: var(--negro-80); border-bottom: 1px solid rgba(255,255,255,0.06); }
+/* ═══════════ BANDA KPI — negro ═══════════ */
+.kpi-band {
+  background: var(--negro-80);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
 .kpi-inner {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -267,11 +296,18 @@ canvas { display: block; max-width: 100%; }
   text-transform: uppercase;
   color: rgba(255,255,255,0.35);
 }
-.kpi-sub { font-family: var(--font-body); font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 5px; font-weight: 400; }
+.kpi-sub {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  margin-top: 5px;
+  font-weight: 400;
+}
 
 /* ═══════════ PÁGINAS / SECCIONES ═══════════ */
 .page { display: none; }
 .page.active { display: block; }
+
 .page-inner {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -323,7 +359,7 @@ canvas { display: block; max-width: 100%; }
 .g31 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
 .span2 { grid-column: span 2; }
 
-/* ═══════════ CARD ═══════════ */
+/* ═══════════ CARD — componente base ═══════════ */
 .card {
   background: var(--blanco);
   border: 1px solid var(--gris-borde);
@@ -331,7 +367,6 @@ canvas { display: block; max-width: 100%; }
   border-radius: 2px 2px 4px 4px;
   padding: 24px;
   position: relative;
-  overflow: hidden; /* ✅ evita que algo se salga en móvil */
 }
 .card-title {
   font-family: var(--font-body);
@@ -377,15 +412,37 @@ canvas { display: block; max-width: 100%; }
   text-transform: uppercase;
   color: var(--gris-s);
 }
-.stat-sub { font-size: 12px; color: var(--gris); margin-top: 7px; font-weight: 400; }
+.stat-sub {
+  font-size: 12px;
+  color: var(--gris);
+  margin-top: 7px;
+  font-weight: 400;
+}
 
 /* ═══════════ PROGRESS ═══════════ */
 .prog-list { display: flex; flex-direction: column; gap: 14px; }
-.prog-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 12px; gap: 10px; }
+.prog-row { }
+.prog-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
 .prog-meta .lbl { color: var(--gris); font-weight: 400; }
-.prog-meta .val { font-weight: 900; font-family: var(--font-body); text-align: right; }
-.prog-track { height: 8px; background: var(--gris-bg); border-radius: 2px; overflow: hidden; border: 1px solid var(--gris-borde); }
-.prog-fill { height: 100%; border-radius: 2px; animation: growBar 1s cubic-bezier(0.22,1,0.36,1) both; }
+.prog-meta .val { font-weight: 900; font-family: var(--font-body); }
+.prog-track {
+  height: 8px;
+  background: var(--gris-bg);
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid var(--gris-borde);
+}
+.prog-fill {
+  height: 100%;
+  border-radius: 2px;
+  animation: growBar 1s cubic-bezier(0.22,1,0.36,1) both;
+}
 @keyframes growBar { from { width: 0 !important; } }
 
 /* ═══════════ BARRA APILADA ═══════════ */
@@ -409,11 +466,39 @@ canvas { display: block; max-width: 100%; }
   white-space: nowrap;
   padding: 0 6px;
 }
-.stacked-legend { display: flex; flex-wrap: wrap; gap: 14px; }
-.sl { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--gris); }
+.stacked-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.sl {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  color: var(--gris);
+}
 .sl-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
-/* ═══════════ TABLA (estilos internos) ═══════════ */
+/* ═══════════ TABLA ═══════════ */
+.tbl-scroll { position: relative; }
+.tbl-scroll::after {
+  content: '';
+  display: none;
+}
+@media (max-width: 600px) {
+  .tbl-scroll { 
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
+    border-radius: 4px;
+    border: 1px solid var(--gris-borde);
+  }
+  .tbl-scroll .tbl { min-width: 560px; }
+  .tbl-scroll-nn { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tbl-scroll-nn .tbl { min-width: 440px; }
+}
+.tbl { width: 100%; border-collapse: collapse; }
+.tbl thead { background: var(--negro); }
 .tbl th {
   font-family: var(--font-body);
   font-size: 9px;
@@ -440,8 +525,26 @@ canvas { display: block; max-width: 100%; }
 }
 .tbl tr:hover td { background: #FAFAFA; }
 .n { text-align: right; font-weight: 700; font-family: var(--font-body); }
-.tbl-chip { display: inline-block; font-family: var(--font-body); font-size: 9px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; }
-.badge { display: inline-block; font-family: var(--font-body); font-size: 9px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; }
+.tbl-chip {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+.badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 2px;
+}
 
 /* ═══════════ DONUT ═══════════ */
 .donut-row { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
@@ -462,35 +565,91 @@ canvas { display: block; max-width: 100%; }
   border-right: 1px solid var(--gris-borde);
   border-bottom: 1px solid var(--gris-borde);
 }
-.hl-label { font-family: var(--font-body); font-size: 9px; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; color: var(--hl-c, var(--gris-s)); margin-bottom: 10px; }
-.hl-num { font-family: var(--font-title); font-size: 40px; font-weight: 900; line-height: 1; color: var(--hl-c, var(--negro)); margin-bottom: 8px; }
+.hl-label {
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--hl-c, var(--gris-s));
+  margin-bottom: 10px;
+}
+.hl-num {
+  font-family: var(--font-title);
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--hl-c, var(--negro));
+  margin-bottom: 8px;
+}
 .hl-desc { font-size: 12px; color: var(--gris); line-height: 1.7; }
 .hl-rows { margin-top: 14px; display: flex; flex-direction: column; }
-.hl-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--gris); padding: 6px 0; border-top: 1px solid var(--gris-borde); }
+.hl-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--gris);
+  padding: 6px 0;
+  border-top: 1px solid var(--gris-borde);
+}
 .hl-row:first-child { border-top: none; padding-top: 0; }
 .hl-row strong { color: var(--negro); font-weight: 900; }
 
 /* ═══════════ TIMELINE ═══════════ */
 .timeline { display: flex; flex-direction: column; }
-.tl-item { display: grid; grid-template-columns: 80px 20px 1fr; gap: 0 20px; padding-bottom: 28px; }
+.tl-item {
+  display: grid;
+  grid-template-columns: 80px 20px 1fr;
+  gap: 0 20px;
+  padding-bottom: 28px;
+}
 .tl-item:last-child { padding-bottom: 0; }
-.tl-date { font-family: var(--font-body); font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gris-s); text-align: right; padding-top: 2px; }
-.tl-axis { display: flex; flex-direction: column; align-items: center; }
+.tl-date {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gris-s);
+  text-align: right;
+  padding-top: 2px;
+}
+.tl-axis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .tl-dot {
-  width: 14px; height: 14px; border-radius: 50%;
-  flex-shrink: 0; border: 3px solid var(--blanco);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 3px solid var(--blanco);
   box-shadow: 0 0 0 2px var(--dot-c, var(--amarillo));
   background: var(--dot-c, var(--amarillo));
   margin-top: 1px;
   position: relative;
   z-index: 1;
 }
-.tl-line { width: 2px; flex: 1; background: var(--gris-borde); margin-top: 4px; }
+.tl-line {
+  width: 2px;
+  flex: 1;
+  background: var(--gris-borde);
+  margin-top: 4px;
+}
 .tl-item:last-child .tl-line { display: none; }
-.tl-title { font-family: var(--font-body); font-size: 13px; font-weight: 900; color: var(--negro); margin-bottom: 5px; line-height: 1.3; }
+.tl-title {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--negro);
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
 .tl-desc { font-size: 12px; color: var(--gris); line-height: 1.7; }
 
-/* ═══════════ PANEL IMPACTO ═══════════ */
+/* ═══════════ PANEL IMPACTO (cronología) ═══════════ */
 .impact-panel {
   background: var(--negro);
   border-radius: 3px;
@@ -523,12 +682,32 @@ canvas { display: block; max-width: 100%; }
   color: rgba(255,255,255,0.3);
 }
 
+/* ═══════════ CHART CONTAINER ═══════════ */
+.chart-wrap { position: relative; }
+
+/* Responsive chart heights */
+@media (max-width: 480px) {
+  .chart-wrap[style*="height:255px"] { height: 200px !important; }
+  .chart-wrap[style*="height:210px"] { height: 190px !important; }
+  .chart-wrap[style*="height:200px"] { height: 180px !important; }
+  .chart-wrap[style*="height:215px"] { height: 185px !important; }
+  .hero-geo { width: 200px; height: 200px; right: -60px; top: -40px; }
+  .hero-geo2 { display: none; }
+}
+
 /* ═══════════ FADE IN ═══════════ */
-.fade-up { opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease, transform 0.4s ease; }
+.fade-up {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
 .fade-up.show { opacity: 1; transform: translateY(0); }
 
 /* ═══════════ FOOTER ═══════════ */
-.site-footer { background: var(--negro); border-top: 3px solid var(--amarillo); }
+.site-footer {
+  background: var(--negro);
+  border-top: 3px solid var(--amarillo);
+}
 .footer-inner {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -538,44 +717,161 @@ canvas { display: block; max-width: 100%; }
   justify-content: space-between;
   gap: 20px;
 }
-.footer-brand { font-family: var(--font-body); font-size: 11px; color: rgba(255,255,255,0.3); }
+.footer-brand {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+}
 .footer-brand strong { color: var(--amarillo); }
-.footer-web { font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: rgba(255,255,255,0.2); text-transform: uppercase; }
+.footer-web {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.2);
+  text-transform: uppercase;
+}
 
 /* ═══════════ RESPONSIVE ═══════════ */
+
+/* ── Tablet grande (≤ 1024px) ── */
 @media (max-width: 1024px) {
   .kpi-inner { grid-template-columns: repeat(3,1fr); }
   .g4 { grid-template-columns: 1fr 1fr; }
   .g13, .g31 { grid-template-columns: 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr; }
 }
 
+/* ── Tablet (≤ 768px) ── */
 @media (max-width: 768px) {
-  :root { --pad-x: 20px; }
-  .header-inner { gap: 12px; }
+  :root { --pad-x: 16px; }
+  .header-inner { gap: 10px; }
   .site-nav { display: none; }
   .kpi-inner { grid-template-columns: 1fr 1fr; }
   .g2,.g3,.g4 { grid-template-columns: 1fr; }
   .span2 { grid-column: span 1; }
   .hl-grid { grid-template-columns: 1fr; }
-  .impact-panel { grid-template-columns: 1fr; }
+  .impact-panel { grid-template-columns: 1fr 1fr; }
   .hero h1 { font-size: 26px; }
 
-  /* ✅ Donuts alineados en móvil (evita que queden “corridos”) */
-  .donut-row { flex-direction: column; align-items: center; gap: 14px; }
-  .donut-legend { width: 100%; min-width: 0; }
+  /* Tablas: scroll horizontal */
+  .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tbl-scroll .tbl { min-width: 540px; }
 
-  /* ✅ Tablas: padding y tipografía más compacta */
-  .tbl th, .tbl td { padding: 10px 10px; }
-  .tbl { min-width: 720px; } /* fuerza scroll para tablas grandes */
+  /* Donut responsivo */
+  .donut-row { flex-direction: column; align-items: center; gap: 18px; }
+  .donut-legend { width: 100%; }
 
-  /* ✅ Valores de progress: evita que rompan el layout */
-  .prog-meta { flex-wrap: wrap; }
-  .prog-meta .val { width: 100%; text-align: left; }
+  /* Timeline */
+  .tl-item { grid-template-columns: 70px 16px 1fr; gap: 0 12px; }
+
+  /* Facturación mini-stats en columna */
+  .stat-num { font-size: 32px; }
+
+  /* g13 en columna apilada */
+  .g13 { grid-template-columns: 1fr; }
+  
+  /* Section head */
+  .sec-head { flex-wrap: wrap; gap: 8px; }
+  .sec-period { margin-left: 0; width: 100%; }
+
+  /* Hero */
+  .hero-inner { padding: 28px var(--pad-x) 24px; }
+  .hero-desc { font-size: 14px; }
 }
 
+/* ── Móvil (≤ 480px) ── */
+@media (max-width: 480px) {
+  :root { --pad-x: 12px; }
+
+  /* KPI band: 2 col en móvil pequeño */
+  .kpi-inner { grid-template-columns: 1fr 1fr; }
+  .kpi-cell { padding: 14px 10px 12px; }
+  .kpi-num { font-size: 24px; }
+  .kpi-label { font-size: 8px; letter-spacing: 0.1em; }
+  .kpi-sub { font-size: 9px; }
+
+  /* Cards */
+  .card { padding: 16px 14px; }
+  .stat-card { padding: 14px 12px; }
+  .stat-num { font-size: 28px; }
+
+  /* Grillas de stats: 2 columnas en móvil */
+  .g4 { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* Tabla maestra: scroll obligatorio */
+  .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--gris-borde); border-radius: 4px; }
+  .tbl-scroll .tbl { min-width: 600px; }
+  .tbl th, .tbl td { padding: 8px 10px; font-size: 11px; }
+
+  /* Barra apilada */
+  .stk-seg { font-size: 9px; padding: 0 4px; }
+  .stacked-legend { gap: 8px; }
+  .sl { font-size: 10px; }
+
+  /* Barras de progreso */
+  .prog-meta { flex-wrap: wrap; gap: 2px; }
+  .prog-meta .val { font-size: 11px; }
+  .prog-meta .lbl { font-size: 11px; }
+
+  /* Donut */
+  .donut-row { flex-direction: column; align-items: center; }
+  canvas#donut-resumen,
+  canvas#donut-nn,
+  canvas#donut-etapas { width: 160px !important; height: 160px !important; }
+
+  /* Timeline compacto */
+  .tl-item { grid-template-columns: 60px 14px 1fr; gap: 0 8px; padding-bottom: 20px; }
+  .tl-date { font-size: 9px; }
+  .tl-title { font-size: 12px; }
+  .tl-desc { font-size: 11px; }
+
+  /* Impact panel */
+  .impact-panel { grid-template-columns: 1fr 1fr; padding: 16px; gap: 8px; }
+  .impact-num { font-size: 28px; }
+  .impact-label { font-size: 8px; }
+
+  /* Page inner */
+  .page-inner { padding: 20px var(--pad-x) 40px; gap: 16px; }
+
+  /* g2 ya es 1 col en 768, se mantiene */
+  .g2, .g3 { grid-template-columns: 1fr; gap: 14px; }
+
+  /* Hero */
+  .hero h1 { font-size: 22px; }
+  .hero-label { font-size: 9px; }
+
+  /* Header compacto */
+  .logo-wordmark { font-size: 20px; }
+  .logo-subtitle { font-size: 9px; }
+  .header-meta { font-size: 9px; }
+  .logo-divider { margin: 0 10px; }
+
+  /* Footer */
+  .footer-inner { flex-direction: column; align-items: flex-start; gap: 6px; padding: 14px var(--pad-x); }
+  .footer-brand { font-size: 10px; }
+  .footer-web { font-size: 10px; }
+
+  /* Tabla NN en móvil: reducir columnas visibles */
+  .tbl-scroll-nn { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tbl-scroll-nn .tbl { min-width: 480px; }
+
+  /* Mini stats grid dentro de cards */
+  .mini-stats-4 { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+
+  /* Hallazgos clave (g3 interno) */
+  .card .g3 { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Gráfico mensual: más alto para mejor lectura */
+  #chart-mensual { min-height: 220px; }
+
+  /* Sec chip + h2 */
+  .sec-head h2 { font-size: 17px; }
+  .sec-chip { font-size: 8px; }
+}
 /* ═══════════ NAV TOGGLE (MÓVIL) ═══════════ */
 .nav-toggle{
-  display:none;
+  display:none;                 /* oculto en desktop */
   margin-left:auto;
   width:40px;
   height:40px;
@@ -590,17 +886,23 @@ canvas { display: block; max-width: 100%; }
   align-items:center;
   justify-content:center;
 }
+
+/* estado focus accesible */
 .nav-toggle:focus{
   outline: 3px solid rgba(241,182,52,0.45);
   outline-offset: 2px;
 }
 
 @media (max-width: 768px) {
+  /* muestra el botón en móvil */
   .nav-toggle{ display:inline-flex; }
+
+  /* el meta lo empujamos abajo si hace falta */
   .header-inner{ position:relative; }
 
+  /* nav en modo desplegable */
   .site-nav{
-    display:none;
+    display:none;               /* cerrado por defecto */
     position:absolute;
     left: var(--pad-x);
     right: var(--pad-x);
@@ -615,31 +917,44 @@ canvas { display: block; max-width: 100%; }
     box-shadow: 0 10px 25px rgba(0,0,0,0.25);
   }
   .site-nav.is-open{ display:flex; }
+
+  /* botones dentro del menú desplegable */
   .site-nav .nav-btn{
     width:100%;
     text-align:left;
     padding: 12px 14px;
     border-radius: 8px;
   }
-  .header-meta{ margin-left:auto; opacity:0.65; }
+
+  /* el “Corte” lo dejamos al final del header */
+  .header-meta{
+    margin-left:auto;
+    opacity:0.65;
+  }
 }
 </style>
 </head>
-
 <body>
 
+<!-- Barra amarilla superior — sello institucional -->
 <div class="topbar"></div>
 
+<!-- ═══════════════ HEADER ═══════════════ -->
 <header class="site-header">
   <div class="header-inner">
+
+    <!-- Logo Duoc UC — versión texto fiel al manual -->
     <a class="duoc-logo" href="#" aria-label="Duoc UC">
       <div class="logo-wordmark">Duoc<span class="uc">UC</span></div>
     </a>
     <div class="logo-divider"></div>
     <div class="logo-subtitle">Área de<br>Catalogación</div>
 
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav">☰</button>
-
+<!-- Botón menú móvil -->
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav">
+  ☰
+</button>
+    <!-- Navegación -->
     <nav class="site-nav" id="siteNav">
       <button class="nav-btn active" onclick="showPage('resumen',this)">Resumen</button>
       <button class="nav-btn" onclick="showPage('licitacion',this)">Licitación 2026-1</button>
@@ -652,6 +967,7 @@ canvas { display: block; max-width: 100%; }
   </div>
 </header>
 
+<!-- ═══════════════ HERO ═══════════════ -->
 <div class="hero">
   <div class="hero-geo"></div>
   <div class="hero-geo2"></div>
@@ -666,6 +982,7 @@ canvas { display: block; max-width: 100%; }
   </div>
 </div>
 
+<!-- ═══════════════ BANDA KPI ═══════════════ -->
 <div class="kpi-band">
   <div class="kpi-inner">
     <div class="kpi-cell">
@@ -696,7 +1013,10 @@ canvas { display: block; max-width: 100%; }
   </div>
 </div>
 
-<!-- PÁGINA: RESUMEN -->
+
+<!-- ═══════════════════════════════════════
+  PÁGINA: RESUMEN
+═══════════════════════════════════════ -->
 <div class="page active" id="page-resumen">
 <div class="page-inner">
 
@@ -706,8 +1026,10 @@ canvas { display: block; max-width: 100%; }
     <span class="sec-period">ABR/2023 – FEB/2026</span>
   </div>
 
+  <!-- Tabla maestra -->
   <div class="card fade-up" style="--card-top:var(--negro)">
     <div class="card-title">Tabla maestra · tres áreas de gestión simultánea</div>
+    <div class="tbl-scroll">
     <table class="tbl">
       <thead>
         <tr>
@@ -770,9 +1092,11 @@ canvas { display: block; max-width: 100%; }
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 
   <div class="g2">
+    <!-- Barras de avance -->
     <div class="card fade-up">
       <div class="card-title">Avance por área e indicador</div>
       <div class="prog-list">
@@ -824,10 +1148,11 @@ canvas { display: block; max-width: 100%; }
       </div>
     </div>
 
+    <!-- Donut distribución -->
     <div class="card fade-up">
       <div class="card-title">Distribución del total gestionado (3.181 ítems)</div>
       <div class="donut-row" style="margin-top:12px">
-        <canvas id="donut-resumen"></canvas>
+        <canvas id="donut-resumen" width="175" height="175" style="flex-shrink:0"></canvas>
         <div class="donut-legend">
           <div class="dleg">
             <div class="dleg-dot" style="background:var(--azul)"></div>
@@ -858,7 +1183,10 @@ canvas { display: block; max-width: 100%; }
 </div>
 </div>
 
-<!-- PÁGINA: LICITACIÓN 2026-1 -->
+
+<!-- ═══════════════════════════════════════
+  PÁGINA: LICITACIÓN 2026-1
+═══════════════════════════════════════ -->
 <div class="page" id="page-licitacion">
 <div class="page-inner">
 
@@ -892,6 +1220,7 @@ canvas { display: block; max-width: 100%; }
   </div>
 
   <div class="g2">
+    <!-- Avance -->
     <div class="card fade-up" style="--card-top:var(--azul)">
       <div class="card-title">Avance detallado por indicador</div>
       <div class="prog-list">
@@ -918,6 +1247,7 @@ canvas { display: block; max-width: 100%; }
       </div>
     </div>
 
+    <!-- Facturación -->
     <div class="card fade-up" style="--card-top:var(--azul)">
       <div class="card-title">Estado de facturación — 743 ítems adjudicados</div>
       <div class="stacked-wrap">
@@ -932,7 +1262,7 @@ canvas { display: block; max-width: 100%; }
           <div class="sl"><div class="sl-dot" style="background:var(--rojo)"></div>No llegará: 4 (0,5%)</div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px">
+      <div class="mini-stats-4" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px">
         <div style="text-align:center;background:var(--verde-s);border-top:3px solid var(--verde);border-radius:3px;padding:16px">
           <div style="font-family:'Merriweather',serif;font-size:34px;font-weight:900;color:var(--verde)">606</div>
           <div style="font-family:'Lato',sans-serif;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gris-s)">Facturados</div>
@@ -949,12 +1279,15 @@ canvas { display: block; max-width: 100%; }
     </div>
   </div>
 
+  <!-- NN -->
   <div class="card fade-up" style="--card-top:var(--azul)">
     <div class="card-title">Estado de NN</div>
-    <div class="g13">
-      <canvas id="donut-nn"></canvas>
+    <div class="g13" style="align-items:start">
+      <div style="display:flex;justify-content:center">
+        <canvas id="donut-nn" width="175" height="175"></canvas>
+      </div>
       <div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
+        <div class="mini-stats-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
           <div style="text-align:center;background:var(--verde-s);border-top:3px solid var(--verde);border-radius:3px;padding:14px">
             <div style="font-family:'Merriweather',serif;font-size:32px;font-weight:900;color:var(--verde)">94</div>
             <div style="font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-s)">Ingresados</div>
@@ -972,6 +1305,7 @@ canvas { display: block; max-width: 100%; }
             <div style="font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-s)">Pend. SIDOC</div>
           </div>
         </div>
+        <div class="tbl-scroll-nn">
         <table class="tbl">
           <thead>
             <tr><th>NN</th><th>No. Control</th><th>Título</th><th>Sedes</th><th>Motivo</th><th>Estado</th></tr>
@@ -995,6 +1329,7 @@ canvas { display: block; max-width: 100%; }
             </tr>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   </div>
@@ -1002,7 +1337,10 @@ canvas { display: block; max-width: 100%; }
 </div>
 </div>
 
-<!-- PÁGINA: DONACIÓN BCN -->
+
+<!-- ═══════════════════════════════════════
+  PÁGINA: DONACIÓN BCN
+═══════════════════════════════════════ -->
 <div class="page" id="page-bcn">
 <div class="page-inner">
 
@@ -1012,6 +1350,7 @@ canvas { display: block; max-width: 100%; }
     <span class="sec-period">ABR/2023 · ENE/2024 · MAR/2024 → 2026</span>
   </div>
 
+  <!-- Bloque diferenciación clave — visualmente destacado -->
   <div class="card fade-up" style="--card-top:var(--purpura);padding:0;overflow:hidden">
     <div style="background:var(--purpura);padding:16px 24px 14px">
       <div class="card-title" style="color:rgba(255,255,255,0.5);margin-bottom:0">Diferenciación clave · Total histórico vs. ingresos y catalogación durante la gestión activa</div>
@@ -1042,6 +1381,7 @@ canvas { display: block; max-width: 100%; }
         </div>
   </div>
 
+  <!-- Stats -->
   <div class="g4">
     <div class="stat-card fade-up" style="--stat-color:var(--purpura)">
       <div class="stat-num">2.278</div>
@@ -1065,6 +1405,7 @@ canvas { display: block; max-width: 100%; }
     </div>
   </div>
 
+  <!-- Gráfico ingresos mensuales -->
   <div class="card fade-up" style="--card-top:var(--purpura)">
     <div class="card-title">Ingresos mensuales de ítems al sistema · diferenciado por período de gestión (F. Creación Ítem)</div>
     <div class="chart-wrap" style="height:255px">
@@ -1080,6 +1421,7 @@ canvas { display: block; max-width: 100%; }
   </div>
     </div>
 
+    <!-- Estado colección -->
     <div class="card fade-up" style="--card-top:var(--purpura)">
       <div class="card-title">Estado actual de la colección BCN</div>
       <div class="prog-list" style="margin-top:4px">
@@ -1108,6 +1450,7 @@ canvas { display: block; max-width: 100%; }
   </div>
 
   <div class="g2">
+    <!-- Descartes -->
     <div class="card fade-up" style="--card-top:var(--rojo)">
       <div class="card-title">Primer descarte · motivos de rechazo (251 ítems · 28/01–06/02/2026)</div>
       <div class="chart-wrap" style="height:210px">
@@ -1115,10 +1458,11 @@ canvas { display: block; max-width: 100%; }
       </div>
     </div>
 
+    <!-- Etapas + circulaciones -->
     <div class="card fade-up" style="--card-top:var(--purpura)">
       <div class="card-title">Etapas de donación BCN</div>
       <div class="donut-row" style="margin-bottom:16px">
-        <canvas id="donut-etapas"></canvas>
+        <canvas id="donut-etapas" width="150" height="150" style="flex-shrink:0"></canvas>
         <div class="donut-legend">
           <div class="dleg">
             <div class="dleg-dot" style="background:#5A2E8E"></div>
@@ -1158,7 +1502,10 @@ canvas { display: block; max-width: 100%; }
 </div>
 </div>
 
-<!-- PÁGINA: PENDIENTES 2023-2024 -->
+
+<!-- ═══════════════════════════════════════
+  PÁGINA: PENDIENTES 2023-2024
+═══════════════════════════════════════ -->
 <div class="page" id="page-pendientes">
 <div class="page-inner">
 
@@ -1176,8 +1523,10 @@ canvas { display: block; max-width: 100%; }
   </div>
 
   <div class="g2">
+    <!-- Tabla -->
     <div class="card fade-up" style="--card-top:var(--naranja)">
       <div class="card-title">Detalle por licitación</div>
+      <div class="tbl-scroll">
       <table class="tbl">
         <thead>
           <tr><th>Licitación</th><th class="n">Total</th><th class="n">Ingr. SYP</th><th class="n">Descarte</th><th class="n">Listo</th><th class="n">NO</th></tr>
@@ -1217,8 +1566,10 @@ canvas { display: block; max-width: 100%; }
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
 
+    <!-- Donut estado -->
     <div class="card fade-up" style="--card-top:var(--naranja)">
       <div class="card-title">Estado general de los 160 ítems auditados</div>
       <div class="chart-wrap" style="height:200px">
@@ -1227,6 +1578,7 @@ canvas { display: block; max-width: 100%; }
     </div>
   </div>
 
+  <!-- Análisis -->
   <div class="card fade-up" style="--card-top:var(--naranja)">
     <div class="card-title">Hallazgos clave de la auditoría</div>
     <div class="g3">
@@ -1247,7 +1599,10 @@ canvas { display: block; max-width: 100%; }
 </div>
 </div>
 
-<!-- PÁGINA: CRONOLOGÍA -->
+
+<!-- ═══════════════════════════════════════
+  PÁGINA: CRONOLOGÍA
+═══════════════════════════════════════ -->
 <div class="page" id="page-cronologia">
 <div class="page-inner">
 
@@ -1258,6 +1613,7 @@ canvas { display: block; max-width: 100%; }
   </div>
 
   <div class="g2">
+    <!-- Timeline -->
     <div class="card fade-up" style="--card-top:var(--negro)">
       <div class="card-title">Hitos por área y período</div>
       <div class="timeline">
@@ -1302,6 +1658,7 @@ canvas { display: block; max-width: 100%; }
     </div>
 
     <div style="display:flex;flex-direction:column;gap:20px">
+      <!-- Panel impacto -->
       <div class="impact-panel fade-up">
         <div class="impact-cell" style="--i-c:var(--amarillo)">
           <div class="impact-num">3.181</div>
@@ -1321,6 +1678,7 @@ canvas { display: block; max-width: 100%; }
         </div>
       </div>
 
+      <!-- Gráfico anual -->
       <div class="card fade-up" style="--card-top:var(--amarillo)">
         <div class="card-title">Ingresos BCN anuales vs. circulaciones acumuladas</div>
         <div class="chart-wrap" style="height:215px">
@@ -1333,6 +1691,8 @@ canvas { display: block; max-width: 100%; }
 </div>
 </div>
 
+
+<!-- ═══════════ FOOTER INSTITUCIONAL ═══════════ -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
@@ -1342,6 +1702,8 @@ canvas { display: block; max-width: 100%; }
   </div>
 </footer>
 
+
+<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
 <script>
 /* ── Navegación ── */
 function showPage(id, btn) {
@@ -1349,15 +1711,8 @@ function showPage(id, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   btn.classList.add('active');
-
   window.scrollTo({ top: document.querySelector('.kpi-band').offsetTop - 64, behavior: 'smooth' });
-
-  // ✅ rebuild + resize al mostrar (en móvil evita que el canvas quede mal calculado)
-  setTimeout(() => {
-    buildCharts();
-    resizeAllCharts();
-    revealFadeUps();
-  }, 120);
+  setTimeout(() => { buildCharts(); revealFadeUps(); }, 80);
 }
 
 /* ── Fade ups ── */
@@ -1369,7 +1724,7 @@ function revealFadeUps() {
 window.addEventListener('scroll', revealFadeUps);
 setTimeout(revealFadeUps, 300);
 
-/* ── Chart.js defaults ── */
+/* ── Chart.js — configuración de marca Duoc UC ── */
 Chart.defaults.color = '#666666';
 Chart.defaults.font.family = "'Lato', Arial, sans-serif";
 Chart.defaults.font.size = 11;
@@ -1381,16 +1736,6 @@ const cs = {}; // chart store
 function destroyChart(id) {
   if (cs[id]) { cs[id].destroy(); delete cs[id]; }
 }
-
-/* ✅ resize helper (móvil/orientación/tabs) */
-function resizeAllCharts(){
-  Object.keys(cs).forEach(k => { try { cs[k].resize(); } catch(e){} });
-}
-window.addEventListener('resize', () => {
-  // pequeño debounce
-  clearTimeout(window.__rzT);
-  window.__rzT = setTimeout(resizeAllCharts, 120);
-});
 
 function buildCharts() {
 
@@ -1407,9 +1752,7 @@ function buildCharts() {
         }]
       },
       options: {
-        cutout: '68%',
-        responsive: true,
-        maintainAspectRatio: false,  // ✅ clave en móvil
+        cutout: '68%', responsive: true, maintainAspectRatio: true,
         plugins: {
           legend: { display: false },
           tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw.toLocaleString('es-CL')} ítems` }}
@@ -1427,9 +1770,7 @@ function buildCharts() {
         datasets: [{ data:[94,13], backgroundColor:['#6DAC3B','#BB0034'], borderWidth:3, borderColor:'#FFF' }]
       },
       options: {
-        cutout:'65%',
-        responsive:true,
-        maintainAspectRatio:false, // ✅
+        cutout:'65%', responsive:true, maintainAspectRatio:true,
         plugins: {
           legend: { display:true, position:'bottom',
             labels:{color:'#666',padding:14,boxWidth:12,font:{size:11,weight:'700'}}},
@@ -1447,7 +1788,6 @@ function buildCharts() {
                    'Ene 26','Feb 26'];
     const pre  = [43,15,1,153,296,103,115,217,191,87,228,194,152,55,0,0,0,0,0,0,0,0];
     const gest = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,1,11,74,7,10,265,45];
-
     cs['chart-mensual'] = new Chart(document.getElementById('chart-mensual'), {
       type:'bar',
       data:{
@@ -1462,7 +1802,30 @@ function buildCharts() {
         plugins:{ legend:{ display:true, position:'top',
           labels:{color:'#666',padding:16,boxWidth:12,font:{size:11,weight:'700'}}}},
         scales:{
-          x:{ grid:gridCfg, ticks:{ maxRotation:40, minRotation:30, autoSkip: true, maxTicksLimit: 10 } },
+          x:{ grid:gridCfg, ticks:{ maxRotation:40, minRotation:30 }},
+          y:{ grid:gridCfg, beginAtZero:true, ticks:{ precision:0 }}
+        }
+      }
+    });
+  }
+
+  /* ─ CATALOGACIÓN POR AÑO ─ */
+  if (document.getElementById('chart-catalogacion') && !cs['chart-catalogacion']) {
+    cs['chart-catalogacion'] = new Chart(document.getElementById('chart-catalogacion'), {
+      type:'bar',
+      data:{
+        labels:['2023','2024','2025 ★','2026'],
+        datasets:[{
+          data:[1,34,1601,5],
+          backgroundColor:['#DDD','#C8A0E0','#9B50C0','rgba(155,80,192,0.35)'],
+          borderRadius:4
+        }]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{ tooltip:{ callbacks:{ label: ctx=>`${ctx.raw.toLocaleString('es-CL')} registros` }}},
+        scales:{
+          x:{ grid:{display:false}, ticks:{ font:{weight:'700'}}},
           y:{ grid:gridCfg, beginAtZero:true, ticks:{ precision:0 }}
         }
       }
@@ -1501,9 +1864,7 @@ function buildCharts() {
         datasets:[{ data:[1152,9,1117], backgroundColor:['#5A2E8E','#7EBFE6','#9B50C0'], borderWidth:3, borderColor:'#FFF' }]
       },
       options:{
-        cutout:'58%',
-        responsive:true,
-        maintainAspectRatio:false, // ✅
+        cutout:'58%', responsive:true, maintainAspectRatio:true,
         plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx=>`${ctx.label}: ${ctx.raw.toLocaleString('es-CL')}` }}}
       }
     });
@@ -1515,12 +1876,10 @@ function buildCharts() {
       type:'doughnut',
       data:{
         labels:['Listo (85.6%)','Descarte (14,4%)'],
-        datasets:[{ data:[137,23], backgroundColor:['#6DAC3B','#BB0034'], borderWidth:3, borderColor:'#FFF' }]
+        datasets:[{ data:[137,23], backgroundColor:['#6DAC3B','#4E7CDD','#BB0034','#D3752E'], borderWidth:3, borderColor:'#FFF' }]
       },
       options:{
-        cutout:'56%',
-        responsive:true,
-        maintainAspectRatio:false,
+        cutout:'56%', responsive:true, maintainAspectRatio:false,
         plugins:{
           legend:{ display:true, position:'right',
             labels:{color:'#666',padding:12,boxWidth:12,font:{size:11,weight:'700'}}},
@@ -1559,7 +1918,6 @@ function buildCharts() {
     });
   }
 }
-
 /* ── Menú móvil (hamburguesa) ── */
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.querySelector('.nav-toggle');
@@ -1569,9 +1927,9 @@ document.addEventListener('DOMContentLoaded', () => {
   btn.addEventListener('click', () => {
     const open = nav.classList.toggle('is-open');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    setTimeout(resizeAllCharts, 120); // ✅ por si el header cambia alto
   });
 
+  // cerrar si tocas fuera del menú
   document.addEventListener('click', (e) => {
     if (!nav.classList.contains('is-open')) return;
     const clickedInside = nav.contains(e.target) || btn.contains(e.target);
@@ -1591,9 +1949,7 @@ showPage = function(id, btn){
   if (toggle) toggle.setAttribute('aria-expanded','false');
   _showPage(id, btn);
 };
-
 buildCharts();
-setTimeout(resizeAllCharts, 200);
 </script>
 </body>
 </html>
