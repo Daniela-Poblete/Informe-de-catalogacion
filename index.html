@@ -1138,7 +1138,7 @@ body {
     </div>
     <div class="hl-grid" style="padding:24px;gap:20px">
       <div class="hl-box" style="--hl-c:var(--purpura)">
-        <div class="hl-label">📦 Total histórico ingresado</div>
+        <div class="hl-label">✦ Total histórico ingresado</div>
         <div class="hl-num">2.278</div>
         <div class="hl-desc">Ítems creados en sistema desde ABR/2023 hasta FEB/2026 en las 3 etapas de donación BCN.</div>
         <div class="hl-rows">
@@ -1159,27 +1159,7 @@ body {
             <span>310 ítems</span>
           </div>
         </div>
-      </div>
-      <div class="hl-box" style="--hl-c:var(--amarillo)">
-        <div class="hl-label">✦ Catalogación bibliog. realizada en gestión</div>
-        <div class="hl-num">1.606</div>
-        <div class="hl-desc">Registros bibliográficos creados y catalogados en 2025–2026 sobre el fondo BCN acumulado.</div>
-        <div class="hl-rows">
-          <div class="hl-row">
-            <span><strong>Catalogados en 2025</strong></span>
-            <span style="color:var(--purpura)"><strong>1.601 registros</strong></span>
-          </div>
-          <div class="hl-row">
-            <span>Catalogados en 2026</span>
-            <span>5 registros</span>
-          </div>
-          <div class="hl-row">
-            <span>Pre-gestión (2023–2024)</span>
-            <span style="color:var(--gris-s)">35 registros</span>
-          </div>
         </div>
-      </div>
-    </div>
   </div>
 
   <!-- Stats -->
@@ -1217,18 +1197,9 @@ body {
       <div class="sl"><div class="sl-dot" style="background:var(--purpura)"></div>Durante gestión 2025–2026 · 428 ítems</div>
     </div>
     <div class="card-note">
-      📌 Los 1.850 ítems de 2023–2024 fueron ingresados antes de la gestión activa del área. En 2025–2026 se procesaron 428 ítems adicionales y se completó la <strong>catalogación bibliográfica de 1.606 registros</strong> del fondo BCN acumulado — la actividad central del período de gestión.
+      📌 Los 1.850 ítems de 2023–2024 fueron ingresados antes de la gestión activa del área. En 2025–2026 se procesaron 428 ítems adicionales y se completó la <strong>catalogación bibliográfica de </strong>
     </div>
   </div>
-
-  <div class="g2">
-    <!-- Catalogación por año -->
-    <div class="card fade-up" style="--card-top:var(--purpura)">
-      <div class="card-title">Catalogación bibliográfica por año (F. Catalogación)</div>
-      <div class="chart-wrap" style="height:200px">
-        <canvas id="chart-catalogacion"></canvas>
-      </div>
-      <div class="card-note">💡 En 2025 se catalogaron <strong>1.601 registros</strong>, representando el grueso del trabajo bibliográfico de la gestión activa sobre el fondo BCN.</div>
     </div>
 
     <!-- Estado colección -->
@@ -1584,7 +1555,7 @@ function buildCharts() {
       type: 'doughnut',
       data: {
         labels: ['Ingresados','No recibidos'],
-        datasets: [{ data:[92,9], backgroundColor:['#6DAC3B','#BB0034'], borderWidth:3, borderColor:'#FFF' }]
+        datasets: [{ data:[94,13], backgroundColor:['#6DAC3B','#BB0034'], borderWidth:3, borderColor:'#FFF' }]
       },
       options: {
         cutout:'65%', responsive:true, maintainAspectRatio:true,
