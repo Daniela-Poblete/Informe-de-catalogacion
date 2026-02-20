@@ -1309,7 +1309,7 @@ body {
       <div class="card-title">Detalle por licitación</div>
       <table class="tbl">
         <thead>
-          <tr><th>Licitación</th><th class="n">Total</th><th class="n">Ingr. SYP</th><th class="n">Descarte</th><th class="n">LISTO</th><th class="n">NO</th></tr>
+          <tr><th>Licitación</th><th class="n">Total</th><th class="n">Ingr. SYP</th><th class="n">Descarte</th><th class="n">Listo</th><th class="n">NO</th></tr>
         </thead>
         <tbody>
           <tr>
@@ -1654,7 +1654,7 @@ function buildCharts() {
     cs['chart-pendientes'] = new Chart(document.getElementById('chart-pendientes'), {
       type:'doughnut',
       data:{
-        labels:['LISTO (85.6%)','Descarte (14,4%)'],
+        labels:['Listo (85.6%)','Descarte (14,4%)'],
         datasets:[{ data:[137,23], backgroundColor:['#6DAC3B','#4E7CDD','#BB0034','#D3752E'], borderWidth:3, borderColor:'#FFF' }]
       },
       options:{
