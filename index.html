@@ -10,21 +10,6 @@
 
 /* ═══════════════════════════════════════════════════
    SISTEMA CROMÁTICO DUOC UC — Manual de Marca 2024
-   ═══════════════════════════════════════════════════
-   Primarios corporativos
-   · Amarillo  Pantone 1235C  →  #F1B634
-   · Negro     Process Black  →  #1A1A1A
-   · Negro 80%               →  #333333
-
-   Colores web/RRSS (pág. 25 del manual)
-   · #1A1A1A  #FFFFFF  #666666  #F1B634
-   · #4E7CDD (azul)   #6DAC3B (verde)   #BB0034 (rojo)
-   · #D3752E (naranja) #9B50C0 (púrpura) #7EBFE6 (celeste)
-   · #009F9A (turquesa) #C6D420 (verde claro)
-
-   Tipografías digitales (pág. 18-19 del manual)
-   · Merriweather — títulos / call to action
-   · Lato        — cuerpo de texto / bajadas
    ═══════════════════════════════════════════════════ */
 
 :root {
@@ -105,11 +90,6 @@ body {
   flex-shrink: 0;
   text-decoration: none;
 }
-.logo-svg-wrap {
-  display: flex;
-  align-items: center;
-}
-/* Logotipo SVG inline fiel al manual */
 .logo-wordmark {
   font-family: var(--font-body);
   font-weight: 900;
@@ -190,7 +170,6 @@ body {
   overflow: hidden;
   position: relative;
 }
-/* Elemento geométrico de la marca — círculos decorativos */
 .hero-geo {
   position: absolute;
   right: -80px;
@@ -421,7 +400,6 @@ body {
 
 /* ═══════════ PROGRESS ═══════════ */
 .prog-list { display: flex; flex-direction: column; gap: 14px; }
-.prog-row { }
 .prog-meta {
   display: flex;
   justify-content: space-between;
@@ -599,11 +577,7 @@ body {
   text-align: right;
   padding-top: 2px;
 }
-.tl-axis {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+.tl-axis { display: flex; flex-direction: column; align-items: center; }
 .tl-dot {
   width: 14px;
   height: 14px;
@@ -667,7 +641,19 @@ body {
 }
 
 /* ═══════════ CHART CONTAINER ═══════════ */
-.chart-wrap { position: relative; }
+.chart-wrap { position: relative; width: 100%; height: 260px; }
+
+/* donut container cuadrado */
+.donut-canvas{
+  width: 180px;
+  height: 180px;
+  flex-shrink: 0;
+}
+.donut-canvas canvas{
+  width: 100% !important;
+  height: 100% !important;
+  display:block;
+}
 
 /* ═══════════ FADE IN ═══════════ */
 .fade-up {
@@ -722,10 +708,20 @@ body {
   .hl-grid { grid-template-columns: 1fr; }
   .impact-panel { grid-template-columns: 1fr; }
   .hero h1 { font-size: 26px; }
+
+  /* charts más altos en móvil */
+  .chart-wrap { height: 320px; }
+
+  /* donuts más grandes y centrados */
+  .donut-canvas{ width: 220px; height: 220px; margin: 0 auto; }
+
+  /* arreglo para grilla 4-col inline (NN) */
+  .nn-cards-4{ grid-template-columns: repeat(2, 1fr) !important; }
 }
+
 /* ═══════════ NAV TOGGLE (MÓVIL) ═══════════ */
 .nav-toggle{
-  display:none;                 /* oculto en desktop */
+  display:none;
   margin-left:auto;
   width:40px;
   height:40px;
@@ -740,23 +736,15 @@ body {
   align-items:center;
   justify-content:center;
 }
-
-/* estado focus accesible */
 .nav-toggle:focus{
   outline: 3px solid rgba(241,182,52,0.45);
   outline-offset: 2px;
 }
-
 @media (max-width: 768px) {
-  /* muestra el botón en móvil */
   .nav-toggle{ display:inline-flex; }
-
-  /* el meta lo empujamos abajo si hace falta */
   .header-inner{ position:relative; }
-
-  /* nav en modo desplegable */
   .site-nav{
-    display:none;               /* cerrado por defecto */
+    display:none;
     position:absolute;
     left: var(--pad-x);
     right: var(--pad-x);
@@ -771,44 +759,57 @@ body {
     box-shadow: 0 10px 25px rgba(0,0,0,0.25);
   }
   .site-nav.is-open{ display:flex; }
-
-  /* botones dentro del menú desplegable */
   .site-nav .nav-btn{
     width:100%;
     text-align:left;
     padding: 12px 14px;
     border-radius: 8px;
   }
-
-  /* el “Corte” lo dejamos al final del header */
   .header-meta{
     margin-left:auto;
     opacity:0.65;
   }
 }
+
+/* ===== TABLAS RESPONSIVE (NUEVO) ===== */
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--gris-borde);
+  border-radius: 6px;
+}
+/* forzamos scroll horizontal si no cabe */
+.table-wrap .tbl{
+  min-width: 720px;
+}
+/* textos largos no rompen layout */
+.card, .tbl td{
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+@media (max-width: 768px){
+  .tbl th, .tbl td{ padding: 10px 10px; }
+  .tbl th{ font-size: 8px; }
+  .tbl td{ font-size: 11px; }
+}
+
 </style>
 </head>
 <body>
 
-<!-- Barra amarilla superior — sello institucional -->
 <div class="topbar"></div>
 
-<!-- ═══════════════ HEADER ═══════════════ -->
 <header class="site-header">
   <div class="header-inner">
-
-    <!-- Logo Duoc UC — versión texto fiel al manual -->
     <a class="duoc-logo" href="#" aria-label="Duoc UC">
       <div class="logo-wordmark">Duoc<span class="uc">UC</span></div>
     </a>
     <div class="logo-divider"></div>
     <div class="logo-subtitle">Área de<br>Catalogación</div>
 
-<!-- Botón menú móvil -->
-<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav">
-  ☰
-</button>
-    <!-- Navegación -->
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="siteNav">☰</button>
+
     <nav class="site-nav" id="siteNav">
       <button class="nav-btn active" onclick="showPage('resumen',this)">Resumen</button>
       <button class="nav-btn" onclick="showPage('licitacion',this)">Licitación 2026-1</button>
@@ -821,7 +822,6 @@ body {
   </div>
 </header>
 
-<!-- ═══════════════ HERO ═══════════════ -->
 <div class="hero">
   <div class="hero-geo"></div>
   <div class="hero-geo2"></div>
@@ -836,7 +836,6 @@ body {
   </div>
 </div>
 
-<!-- ═══════════════ BANDA KPI ═══════════════ -->
 <div class="kpi-band">
   <div class="kpi-inner">
     <div class="kpi-cell">
@@ -867,10 +866,9 @@ body {
   </div>
 </div>
 
-
-<!-- ═══════════════════════════════════════
+<!-- =========================
   PÁGINA: RESUMEN
-═══════════════════════════════════════ -->
+========================= -->
 <div class="page active" id="page-resumen">
 <div class="page-inner">
 
@@ -880,75 +878,77 @@ body {
     <span class="sec-period">ABR/2023 – FEB/2026</span>
   </div>
 
-  <!-- Tabla maestra -->
   <div class="card fade-up" style="--card-top:var(--negro)">
     <div class="card-title">Tabla maestra · tres áreas de gestión simultánea</div>
-    <table class="tbl">
-      <thead>
-        <tr>
-          <th>Área</th>
-          <th class="n">Total</th>
-          <th class="n">Ingresados / Activos</th>
-          <th class="n">Pendientes / Descarte</th>
-          <th class="n">% Avance de ingresos</th>
-          <th>Período</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="tbl-chip" style="background:var(--azul-s);color:var(--azul)">LIC 2026-1</span>&ensp;Copias</td>
-          <td class="n">743</td>
-          <td class="n" style="color:var(--verde)"><strong>596</strong></td>
-          <td class="n" style="color:var(--rojo)">133 pend.</td>
-          <td class="n" style="color:var(--azul)"><strong>80,2%</strong></td>
-          <td style="color:var(--gris-s)">Corte 20/02/2026</td>
-        </tr>
-        <tr>
-          <td><span class="tbl-chip" style="background:var(--azul-s);color:var(--azul)">LIC 2026-1</span>&ensp;Títulos únicos</td>
-          <td class="n">107</td>
-          <td class="n" style="color:var(--verde)"><strong>94</strong></td>
-          <td class="n" style="color:var(--rojo)">13 pend.</td>
-          <td class="n" style="color:var(--azul)"><strong>87,9%</strong></td>
-          <td style="color:var(--gris-s)">Corte 20/02/2026</td>
-        </tr>
-        <tr>
-          <td><span class="tbl-chip" style="background:var(--purpura-s);color:var(--purpura)">BCN</span>&ensp;Total histórico ítems</td>
-          <td class="n">2.278</td>
-          <td class="n" style="color:var(--verde)"><strong>1.875 activos</strong></td>
-          <td class="n" style="color:var(--rojo)">325 desc. / 45 baja</td>
-          <td class="n" style="color:var(--purpura)"><strong>100%</strong></td>
-          <td style="color:var(--gris-s)">ABR/23 – MAR/24 → 2026</td>
-        </tr>
-        <tr>
-          <td><span class="tbl-chip" style="background:var(--purpura-s);color:var(--purpura)">BCN</span>&ensp;<strong>Ingresados 2025-2026</strong></td>
-          <td class="n">428</td>
-          <td class="n" style="color:var(--purpura)"><strong>118 (2025)/310 (2026)</strong></td>
-          <td class="n">—</td>
-          <td class="n">—</td>
-          <td style="color:var(--gris-s)">2025 – 2026</td>
-        </tr>
-        <tr>
-          <td><span class="tbl-chip" style="background:var(--naranja-s);color:var(--naranja)">PENDIENTES</span>&ensp;Licit. 2023–2024</td>
-          <td class="n">160</td>
-          <td class="n" style="color:var(--verde)"><strong>137 SYP</strong></td>
-          <td class="n" style="color:var(--rojo)">23 desc.</td>
-          <td class="n" style="color:var(--naranja)"><strong>100% auditado</strong></td>
-          <td style="color:var(--gris-s)">Feb 2026</td>
-        </tr>
-        <tr class="tr-total">
-          <td><strong>TOTAL PERÍODO</strong></td>
-          <td class="n">3.181</td>
-          <td class="n">1.161</td>
-          <td class="n">348 desc.</td>
-          <td class="n">—</td>
-          <td>ABR/2023 – FEB/2026</td>
-        </tr>
-      </tbody>
-    </table>
+
+    <!-- TABLE WRAP (NUEVO) -->
+    <div class="table-wrap">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Área</th>
+            <th class="n">Total</th>
+            <th class="n">Ingresados / Activos</th>
+            <th class="n">Pendientes / Descarte</th>
+            <th class="n">% Avance de ingresos</th>
+            <th>Período</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tbl-chip" style="background:var(--azul-s);color:var(--azul)">LIC 2026-1</span>&ensp;Copias</td>
+            <td class="n">743</td>
+            <td class="n" style="color:var(--verde)"><strong>596</strong></td>
+            <td class="n" style="color:var(--rojo)">133 pend.</td>
+            <td class="n" style="color:var(--azul)"><strong>80,2%</strong></td>
+            <td style="color:var(--gris-s)">Corte 20/02/2026</td>
+          </tr>
+          <tr>
+            <td><span class="tbl-chip" style="background:var(--azul-s);color:var(--azul)">LIC 2026-1</span>&ensp;Títulos únicos</td>
+            <td class="n">107</td>
+            <td class="n" style="color:var(--verde)"><strong>94</strong></td>
+            <td class="n" style="color:var(--rojo)">13 pend.</td>
+            <td class="n" style="color:var(--azul)"><strong>87,9%</strong></td>
+            <td style="color:var(--gris-s)">Corte 20/02/2026</td>
+          </tr>
+          <tr>
+            <td><span class="tbl-chip" style="background:var(--purpura-s);color:var(--purpura)">BCN</span>&ensp;Total histórico ítems</td>
+            <td class="n">2.278</td>
+            <td class="n" style="color:var(--verde)"><strong>1.875 activos</strong></td>
+            <td class="n" style="color:var(--rojo)">325 desc. / 45 baja</td>
+            <td class="n" style="color:var(--purpura)"><strong>100%</strong></td>
+            <td style="color:var(--gris-s)">ABR/23 – MAR/24 → 2026</td>
+          </tr>
+          <tr>
+            <td><span class="tbl-chip" style="background:var(--purpura-s);color:var(--purpura)">BCN</span>&ensp;<strong>Ingresados 2025-2026</strong></td>
+            <td class="n">428</td>
+            <td class="n" style="color:var(--purpura)"><strong>118 (2025)/310 (2026)</strong></td>
+            <td class="n">—</td>
+            <td class="n">—</td>
+            <td style="color:var(--gris-s)">2025 – 2026</td>
+          </tr>
+          <tr>
+            <td><span class="tbl-chip" style="background:var(--naranja-s);color:var(--naranja)">PENDIENTES</span>&ensp;Licit. 2023–2024</td>
+            <td class="n">160</td>
+            <td class="n" style="color:var(--verde)"><strong>137 SYP</strong></td>
+            <td class="n" style="color:var(--rojo)">23 desc.</td>
+            <td class="n" style="color:var(--naranja)"><strong>100% auditado</strong></td>
+            <td style="color:var(--gris-s)">Feb 2026</td>
+          </tr>
+          <tr class="tr-total">
+            <td><strong>TOTAL PERÍODO</strong></td>
+            <td class="n">3.181</td>
+            <td class="n">1.161</td>
+            <td class="n">348 desc.</td>
+            <td class="n">—</td>
+            <td>ABR/2023 – FEB/2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div class="g2">
-    <!-- Barras de avance -->
     <div class="card fade-up">
       <div class="card-title">Avance por área e indicador</div>
       <div class="prog-list">
@@ -978,7 +978,7 @@ body {
           <div class="prog-track">
             <div class="prog-fill" style="width:82.3%;background:var(--purpura);animation-delay:.16s"></div>
           </div>
-          </div>
+        </div>
         <div class="prog-row">
           <div class="prog-meta">
             <span class="lbl">BCN · ítems con circulaciones</span>
@@ -1000,11 +1000,12 @@ body {
       </div>
     </div>
 
-    <!-- Donut distribución -->
     <div class="card fade-up">
       <div class="card-title">Distribución del total gestionado (3.181 ítems)</div>
       <div class="donut-row" style="margin-top:12px">
-        <canvas id="donut-resumen" width="175" height="175" style="flex-shrink:0"></canvas>
+        <!-- DONUT WRAP (NUEVO) -->
+        <div class="donut-canvas"><canvas id="donut-resumen"></canvas></div>
+
         <div class="donut-legend">
           <div class="dleg">
             <div class="dleg-dot" style="background:var(--azul)"></div>
@@ -1035,10 +1036,9 @@ body {
 </div>
 </div>
 
-
-<!-- ═══════════════════════════════════════
+<!-- =========================
   PÁGINA: LICITACIÓN 2026-1
-═══════════════════════════════════════ -->
+========================= -->
 <div class="page" id="page-licitacion">
 <div class="page-inner">
 
@@ -1072,7 +1072,6 @@ body {
   </div>
 
   <div class="g2">
-    <!-- Avance -->
     <div class="card fade-up" style="--card-top:var(--azul)">
       <div class="card-title">Avance detallado por indicador</div>
       <div class="prog-list">
@@ -1099,7 +1098,6 @@ body {
       </div>
     </div>
 
-    <!-- Facturación -->
     <div class="card fade-up" style="--card-top:var(--azul)">
       <div class="card-title">Estado de facturación — 743 ítems adjudicados</div>
       <div class="stacked-wrap">
@@ -1131,13 +1129,15 @@ body {
     </div>
   </div>
 
-  <!-- NN -->
   <div class="card fade-up" style="--card-top:var(--azul)">
     <div class="card-title">Estado de NN</div>
     <div class="g13">
-      <canvas id="donut-nn" width="175" height="175"></canvas>
+
+      <!-- DONUT WRAP (NUEVO) -->
+      <div class="donut-canvas"><canvas id="donut-nn"></canvas></div>
+
       <div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
+        <div class="nn-cards-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
           <div style="text-align:center;background:var(--verde-s);border-top:3px solid var(--verde);border-radius:3px;padding:14px">
             <div style="font-family:'Merriweather',serif;font-size:32px;font-weight:900;color:var(--verde)">94</div>
             <div style="font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-s)">Ingresados</div>
@@ -1155,29 +1155,34 @@ body {
             <div style="font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-s)">Pend. SIDOC</div>
           </div>
         </div>
-        <table class="tbl">
-          <thead>
-            <tr><th>NN</th><th>No. Control</th><th>Título</th><th>Sedes</th><th>Motivo</th><th>Estado</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="color:var(--azul);font-weight:900">NN1779</td>
-              <td style="color:var(--gris)">a55261</td>
-              <td>Marketing digital: estrategia, implementación y práctica</td>
-              <td style="color:var(--gris-s)">CO · MA · PA</td>
-              <td>Reposición en marzo</td>
-              <td><span class="badge" style="background:var(--naranja-s);color:var(--naranja)">En gestión</span></td>
-            </tr>
-            <tr>
-              <td style="color:var(--azul);font-weight:900">NN1947</td>
-              <td style="color:var(--gris)">a55229</td>
-              <td>Liderazgo coactivo</td>
-              <td style="color:var(--gris-s)">CO · ME · PO · SB</td>
-              <td>Copias mal impresas</td>
-              <td><span class="badge" style="background:var(--rojo-s);color:var(--rojo)">Reclamado</span></td>
-            </tr>
-          </tbody>
-        </table>
+
+        <!-- TABLE WRAP (NUEVO) -->
+        <div class="table-wrap">
+          <table class="tbl">
+            <thead>
+              <tr><th>NN</th><th>No. Control</th><th>Título</th><th>Sedes</th><th>Motivo</th><th>Estado</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color:var(--azul);font-weight:900">NN1779</td>
+                <td style="color:var(--gris)">a55261</td>
+                <td>Marketing digital: estrategia, implementación y práctica</td>
+                <td style="color:var(--gris-s)">CO · MA · PA</td>
+                <td>Reposición en marzo</td>
+                <td><span class="badge" style="background:var(--naranja-s);color:var(--naranja)">En gestión</span></td>
+              </tr>
+              <tr>
+                <td style="color:var(--azul);font-weight:900">NN1947</td>
+                <td style="color:var(--gris)">a55229</td>
+                <td>Liderazgo coactivo</td>
+                <td style="color:var(--gris-s)">CO · ME · PO · SB</td>
+                <td>Copias mal impresas</td>
+                <td><span class="badge" style="background:var(--rojo-s);color:var(--rojo)">Reclamado</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1185,10 +1190,9 @@ body {
 </div>
 </div>
 
-
-<!-- ═══════════════════════════════════════
+<!-- =========================
   PÁGINA: DONACIÓN BCN
-═══════════════════════════════════════ -->
+========================= -->
 <div class="page" id="page-bcn">
 <div class="page-inner">
 
@@ -1198,7 +1202,6 @@ body {
     <span class="sec-period">ABR/2023 · ENE/2024 · MAR/2024 → 2026</span>
   </div>
 
-  <!-- Bloque diferenciación clave — visualmente destacado -->
   <div class="card fade-up" style="--card-top:var(--purpura);padding:0;overflow:hidden">
     <div style="background:var(--purpura);padding:16px 24px 14px">
       <div class="card-title" style="color:rgba(255,255,255,0.5);margin-bottom:0">Diferenciación clave · Total histórico vs. ingresos y catalogación durante la gestión activa</div>
@@ -1226,10 +1229,10 @@ body {
             <span>310 ítems</span>
           </div>
         </div>
-        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Stats -->
   <div class="g4">
     <div class="stat-card fade-up" style="--stat-color:var(--purpura)">
       <div class="stat-num">2.278</div>
@@ -1253,7 +1256,6 @@ body {
     </div>
   </div>
 
-  <!-- Gráfico ingresos mensuales -->
   <div class="card fade-up" style="--card-top:var(--purpura)">
     <div class="card-title">Ingresos mensuales de ítems al sistema · diferenciado por período de gestión (F. Creación Ítem)</div>
     <div class="chart-wrap" style="height:255px">
@@ -1267,9 +1269,8 @@ body {
       📌 Los 1.850 ítems de 2023–2024 fueron ingresados antes de la gestión activa del área. En 2025–2026 se procesaron 428 ítems adicionales y se completó la <strong>catalogación bibliográfica de </strong>
     </div>
   </div>
-    </div>
 
-    <!-- Estado colección -->
+  <div class="g2">
     <div class="card fade-up" style="--card-top:var(--purpura)">
       <div class="card-title">Estado actual de la colección BCN</div>
       <div class="prog-list" style="margin-top:4px">
@@ -1295,54 +1296,53 @@ body {
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="g2">
-    <!-- Descartes -->
     <div class="card fade-up" style="--card-top:var(--rojo)">
       <div class="card-title">Primer descarte · motivos de rechazo (251 ítems · 28/01–06/02/2026)</div>
       <div class="chart-wrap" style="height:210px">
         <canvas id="chart-descarte"></canvas>
       </div>
     </div>
+  </div>
 
-    <!-- Etapas + circulaciones -->
-    <div class="card fade-up" style="--card-top:var(--purpura)">
-      <div class="card-title">Etapas de donación BCN</div>
-      <div class="donut-row" style="margin-bottom:16px">
-        <canvas id="donut-etapas" width="150" height="150" style="flex-shrink:0"></canvas>
-        <div class="donut-legend">
-          <div class="dleg">
-            <div class="dleg-dot" style="background:#5A2E8E"></div>
-            <div>
-              <div class="dleg-label">ABR/2023 — 1ª etapa</div>
-              <div class="dleg-val" style="color:#5A2E8E">1.152 <span style="font-size:13px;color:var(--gris-s);font-weight:400">50,6%</span></div>
-            </div>
+  <div class="card fade-up" style="--card-top:var(--purpura)">
+    <div class="card-title">Etapas de donación BCN</div>
+    <div class="donut-row" style="margin-bottom:16px">
+      <!-- DONUT WRAP (NUEVO) -->
+      <div class="donut-canvas"><canvas id="donut-etapas"></canvas></div>
+
+      <div class="donut-legend">
+        <div class="dleg">
+          <div class="dleg-dot" style="background:#5A2E8E"></div>
+          <div>
+            <div class="dleg-label">ABR/2023 — 1ª etapa</div>
+            <div class="dleg-val" style="color:#5A2E8E">1.152 <span style="font-size:13px;color:var(--gris-s);font-weight:400">50,6%</span></div>
           </div>
-          <div class="dleg">
-            <div class="dleg-dot" style="background:var(--celeste)"></div>
-            <div>
-              <div class="dleg-label">ENE/2024 — 2ª etapa</div>
-              <div class="dleg-val" style="color:var(--celeste)">9 <span style="font-size:13px;color:var(--gris-s);font-weight:400">0,4%</span></div>
-            </div>
+        </div>
+        <div class="dleg">
+          <div class="dleg-dot" style="background:var(--celeste)"></div>
+          <div>
+            <div class="dleg-label">ENE/2024 — 2ª etapa</div>
+            <div class="dleg-val" style="color:var(--celeste)">9 <span style="font-size:13px;color:var(--gris-s);font-weight:400">0,4%</span></div>
           </div>
-          <div class="dleg">
-            <div class="dleg-dot" style="background:var(--purpura)"></div>
-            <div>
-              <div class="dleg-label">MAR/2024 — 3ª etapa</div>
-              <div class="dleg-val" style="color:var(--purpura)">1.117 <span style="font-size:13px;color:var(--gris-s);font-weight:400">49,0%</span></div>
-            </div>
+        </div>
+        <div class="dleg">
+          <div class="dleg-dot" style="background:var(--purpura)"></div>
+          <div>
+            <div class="dleg-label">MAR/2024 — 3ª etapa</div>
+            <div class="dleg-val" style="color:var(--purpura)">1.117 <span style="font-size:13px;color:var(--gris-s);font-weight:400">49,0%</span></div>
           </div>
         </div>
       </div>
-      <div style="background:var(--gris-bg);border-radius:3px;padding:16px;border:1px solid var(--gris-borde)">
-        <div style="font-size:9px;font-weight:900;color:var(--gris-s);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px">Circulaciones por año de ingreso del ítem</div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2023</span><span style="font-weight:900;color:var(--verde)">5.803 préstamos</span></div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2024</span><span style="font-weight:900;color:var(--verde)">991 préstamos</span></div>
-          <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2025</span><span style="font-weight:900">84 préstamos</span></div>
-          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Ítems ingresados 2026</span><span style="font-weight:900">1 préstamo</span></div>
-        </div>
+    </div>
+
+    <div style="background:var(--gris-bg);border-radius:3px;padding:16px;border:1px solid var(--gris-borde)">
+      <div style="font-size:9px;font-weight:900;color:var(--gris-s);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px">Circulaciones por año de ingreso del ítem</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2023</span><span style="font-weight:900;color:var(--verde)">5.803 préstamos</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2024</span><span style="font-weight:900;color:var(--verde)">991 préstamos</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2025</span><span style="font-weight:900">84 préstamos</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Ítems ingresados 2026</span><span style="font-weight:900">1 préstamo</span></div>
       </div>
     </div>
   </div>
@@ -1350,10 +1350,9 @@ body {
 </div>
 </div>
 
-
-<!-- ═══════════════════════════════════════
+<!-- =========================
   PÁGINA: PENDIENTES 2023-2024
-═══════════════════════════════════════ -->
+========================= -->
 <div class="page" id="page-pendientes">
 <div class="page-inner">
 
@@ -1371,51 +1370,53 @@ body {
   </div>
 
   <div class="g2">
-    <!-- Tabla -->
     <div class="card fade-up" style="--card-top:var(--naranja)">
       <div class="card-title">Detalle por licitación</div>
-      <table class="tbl">
-        <thead>
-          <tr><th>Licitación</th><th class="n">Total</th><th class="n">Ingr. SYP</th><th class="n">Descarte</th><th class="n">Listo</th><th class="n">NO</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Licitación 2023</td>
-            <td class="n">19</td>
-            <td class="n" style="color:var(--verde)"><strong>16</strong></td>
-            <td class="n" style="color:var(--verde)"><strong>3</strong></td>
-            <td class="n" style="color:var(--verde)"><strong>16</strong></td>
-            <td class="n" style="color:var(--rojo)">0</td>
-          </tr>
-          <tr>
-            <td>Licitación 2024</td>
-            <td class="n">75</td>
-            <td class="n">59</td>
-            <td class="n" style="color:var(--rojo)"><strong>16</strong></td>
-            <td class="n" style="color:var(--verde)"><strong>59</strong></td>
-            <td class="n" style="color:var(--rojo)">0</td>
-          </tr>
-          <tr>
-            <td>Sin Licitación</td>
-            <td class="n">66</td>
-            <td class="n" style="color:var(--verde)"><strong>61</strong></td>
-            <td class="n" style="color:var(--naranja)">5</td>
-            <td class="n" style="color:var(--verde)"><strong>61</strong></td>
-            <td class="n" style="color:var(--rojo)">0</td>
-          </tr>
-          <tr class="tr-total">
-            <td>TOTAL</td>
-            <td class="n">160</td>
-            <td class="n">137</td>
-            <td class="n">23</td>
-            <td class="n">137</td>
-            <td class="n">0</td>
-          </tr>
-        </tbody>
-      </table>
+
+      <!-- TABLE WRAP (NUEVO) -->
+      <div class="table-wrap">
+        <table class="tbl">
+          <thead>
+            <tr><th>Licitación</th><th class="n">Total</th><th class="n">Ingr. SYP</th><th class="n">Descarte</th><th class="n">Listo</th><th class="n">NO</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Licitación 2023</td>
+              <td class="n">19</td>
+              <td class="n" style="color:var(--verde)"><strong>16</strong></td>
+              <td class="n" style="color:var(--verde)"><strong>3</strong></td>
+              <td class="n" style="color:var(--verde)"><strong>16</strong></td>
+              <td class="n" style="color:var(--rojo)">0</td>
+            </tr>
+            <tr>
+              <td>Licitación 2024</td>
+              <td class="n">75</td>
+              <td class="n">59</td>
+              <td class="n" style="color:var(--rojo)"><strong>16</strong></td>
+              <td class="n" style="color:var(--verde)"><strong>59</strong></td>
+              <td class="n" style="color:var(--rojo)">0</td>
+            </tr>
+            <tr>
+              <td>Sin Licitación</td>
+              <td class="n">66</td>
+              <td class="n" style="color:var(--verde)"><strong>61</strong></td>
+              <td class="n" style="color:var(--naranja)">5</td>
+              <td class="n" style="color:var(--verde)"><strong>61</strong></td>
+              <td class="n" style="color:var(--rojo)">0</td>
+            </tr>
+            <tr class="tr-total">
+              <td>TOTAL</td>
+              <td class="n">160</td>
+              <td class="n">137</td>
+              <td class="n">23</td>
+              <td class="n">137</td>
+              <td class="n">0</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <!-- Donut estado -->
     <div class="card fade-up" style="--card-top:var(--naranja)">
       <div class="card-title">Estado general de los 160 ítems auditados</div>
       <div class="chart-wrap" style="height:200px">
@@ -1424,7 +1425,6 @@ body {
     </div>
   </div>
 
-  <!-- Análisis -->
   <div class="card fade-up" style="--card-top:var(--naranja)">
     <div class="card-title">Hallazgos clave de la auditoría</div>
     <div class="g3">
@@ -1445,10 +1445,9 @@ body {
 </div>
 </div>
 
-
-<!-- ═══════════════════════════════════════
+<!-- =========================
   PÁGINA: CRONOLOGÍA
-═══════════════════════════════════════ -->
+========================= -->
 <div class="page" id="page-cronologia">
 <div class="page-inner">
 
@@ -1459,7 +1458,6 @@ body {
   </div>
 
   <div class="g2">
-    <!-- Timeline -->
     <div class="card fade-up" style="--card-top:var(--negro)">
       <div class="card-title">Hitos por área y período</div>
       <div class="timeline">
@@ -1480,7 +1478,6 @@ body {
           <div class="tl-axis"><div class="tl-dot" style="--dot-c:var(--purpura)"></div><div class="tl-line"></div></div>
           <div><div class="tl-title">3ª Etapa Donación BCN — <span style="color:var(--purpura)">1.117 ítems</span></div>
           <div class="tl-desc"> Proceso completo de ingreso y distribución. La colección BCN alcanza 2.278 ítems en total histórico.</div></div>
-        </div>
         </div>
         <div class="tl-item">
           <div class="tl-date">ENE–FEB 2026</div>
@@ -1504,7 +1501,6 @@ body {
     </div>
 
     <div style="display:flex;flex-direction:column;gap:20px">
-      <!-- Panel impacto -->
       <div class="impact-panel fade-up">
         <div class="impact-cell" style="--i-c:var(--amarillo)">
           <div class="impact-num">3.181</div>
@@ -1524,7 +1520,6 @@ body {
         </div>
       </div>
 
-      <!-- Gráfico anual -->
       <div class="card fade-up" style="--card-top:var(--amarillo)">
         <div class="card-title">Ingresos BCN anuales vs. circulaciones acumuladas</div>
         <div class="chart-wrap" style="height:215px">
@@ -1537,8 +1532,6 @@ body {
 </div>
 </div>
 
-
-<!-- ═══════════ FOOTER INSTITUCIONAL ═══════════ -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
@@ -1548,8 +1541,6 @@ body {
   </div>
 </footer>
 
-
-<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
 <script>
 /* ── Navegación ── */
 function showPage(id, btn) {
@@ -1577,11 +1568,7 @@ Chart.defaults.font.size = 11;
 Chart.defaults.plugins.legend.display = false;
 
 const gridCfg = { color: 'rgba(0,0,0,0.06)', drawBorder: false };
-const cs = {}; // chart store
-
-function destroyChart(id) {
-  if (cs[id]) { cs[id].destroy(); delete cs[id]; }
-}
+const cs = {};
 
 function buildCharts() {
 
@@ -1598,7 +1585,9 @@ function buildCharts() {
         }]
       },
       options: {
-        cutout: '68%', responsive: true, maintainAspectRatio: true,
+        cutout: '68%',
+        responsive: true,
+        maintainAspectRatio: false, /* NUEVO */
         plugins: {
           legend: { display: false },
           tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw.toLocaleString('es-CL')} ítems` }}
@@ -1616,7 +1605,9 @@ function buildCharts() {
         datasets: [{ data:[94,13], backgroundColor:['#6DAC3B','#BB0034'], borderWidth:3, borderColor:'#FFF' }]
       },
       options: {
-        cutout:'65%', responsive:true, maintainAspectRatio:true,
+        cutout:'65%',
+        responsive:true,
+        maintainAspectRatio:false, /* NUEVO */
         plugins: {
           legend: { display:true, position:'bottom',
             labels:{color:'#666',padding:14,boxWidth:12,font:{size:11,weight:'700'}}},
@@ -1644,34 +1635,12 @@ function buildCharts() {
         ]
       },
       options:{
-        responsive:true, maintainAspectRatio:false,
+        responsive:true,
+        maintainAspectRatio:false,
         plugins:{ legend:{ display:true, position:'top',
           labels:{color:'#666',padding:16,boxWidth:12,font:{size:11,weight:'700'}}}},
         scales:{
           x:{ grid:gridCfg, ticks:{ maxRotation:40, minRotation:30 }},
-          y:{ grid:gridCfg, beginAtZero:true, ticks:{ precision:0 }}
-        }
-      }
-    });
-  }
-
-  /* ─ CATALOGACIÓN POR AÑO ─ */
-  if (document.getElementById('chart-catalogacion') && !cs['chart-catalogacion']) {
-    cs['chart-catalogacion'] = new Chart(document.getElementById('chart-catalogacion'), {
-      type:'bar',
-      data:{
-        labels:['2023','2024','2025 ★','2026'],
-        datasets:[{
-          data:[1,34,1601,5],
-          backgroundColor:['#DDD','#C8A0E0','#9B50C0','rgba(155,80,192,0.35)'],
-          borderRadius:4
-        }]
-      },
-      options:{
-        responsive:true, maintainAspectRatio:false,
-        plugins:{ tooltip:{ callbacks:{ label: ctx=>`${ctx.raw.toLocaleString('es-CL')} registros` }}},
-        scales:{
-          x:{ grid:{display:false}, ticks:{ font:{weight:'700'}}},
           y:{ grid:gridCfg, beginAtZero:true, ticks:{ precision:0 }}
         }
       }
@@ -1710,7 +1679,8 @@ function buildCharts() {
         datasets:[{ data:[1152,9,1117], backgroundColor:['#5A2E8E','#7EBFE6','#9B50C0'], borderWidth:3, borderColor:'#FFF' }]
       },
       options:{
-        cutout:'58%', responsive:true, maintainAspectRatio:true,
+        cutout:'58%', responsive:true,
+        maintainAspectRatio:false, /* NUEVO */
         plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx=>`${ctx.label}: ${ctx.raw.toLocaleString('es-CL')}` }}}
       }
     });
@@ -1722,7 +1692,7 @@ function buildCharts() {
       type:'doughnut',
       data:{
         labels:['Listo (85.6%)','Descarte (14,4%)'],
-        datasets:[{ data:[137,23], backgroundColor:['#6DAC3B','#4E7CDD','#BB0034','#D3752E'], borderWidth:3, borderColor:'#FFF' }]
+        datasets:[{ data:[137,23], backgroundColor:['#6DAC3B','#BB0034'], borderWidth:3, borderColor:'#FFF' }]
       },
       options:{
         cutout:'56%', responsive:true, maintainAspectRatio:false,
@@ -1764,6 +1734,7 @@ function buildCharts() {
     });
   }
 }
+
 /* ── Menú móvil (hamburguesa) ── */
 document.addEventListener('DOMContentLoaded', () => {
   const btn = document.querySelector('.nav-toggle');
@@ -1775,7 +1746,6 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
-  // cerrar si tocas fuera del menú
   document.addEventListener('click', (e) => {
     if (!nav.classList.contains('is-open')) return;
     const clickedInside = nav.contains(e.target) || btn.contains(e.target);
@@ -1795,6 +1765,7 @@ showPage = function(id, btn){
   if (toggle) toggle.setAttribute('aria-expanded','false');
   _showPage(id, btn);
 };
+
 buildCharts();
 </script>
 </body>
