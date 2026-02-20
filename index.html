@@ -6,14 +6,12 @@
 <title>Informe de Impacto · Área de Catalogación · Duoc UC</title>
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<style>
 
+<style>
 /* ═══════════════════════════════════════════════════
    SISTEMA CROMÁTICO DUOC UC — Manual de Marca 2024
    ═══════════════════════════════════════════════════ */
-
 :root {
-  /* Brand primario */
   --amarillo:   #F1B634;
   --amarillo-d: #c9920e;
   --negro:      #1A1A1A;
@@ -24,7 +22,6 @@
   --gris-bg:    #F5F5F5;
   --gris-borde: #E2E2E2;
 
-  /* Paleta web del manual */
   --azul:       #4E7CDD;
   --azul-s:     #D9E5F9;
   --verde:      #6DAC3B;
@@ -38,11 +35,9 @@
   --celeste:    #7EBFE6;
   --turquesa:   #009F9A;
 
-  /* Tipografías del manual */
   --font-title: 'Merriweather', Georgia, serif;
   --font-body:  'Lato', Arial, sans-serif;
 
-  /* Espaciado base */
   --max-w: 1280px;
   --pad-x: 40px;
 }
@@ -57,12 +52,47 @@ body {
   min-height: 100vh;
 }
 
-/* ═══════════ BARRA SUPERIOR INSTITUCIONAL ═══════════ */
-.topbar {
-  background: var(--amarillo);
-  height: 6px;
-  width: 100%;
+/* ✅ FIX RESPONSIVE GLOBAL (GRÁFICOS + TABLAS) */
+img, video { max-width: 100%; height: auto; }
+
+/* Chart.js: fuerza que el canvas se adapte al contenedor */
+canvas { display: block; max-width: 100%; }
+
+/* Contenedores de gráficos: siempre 100% ancho */
+.chart-wrap { position: relative; width: 100%; }
+.chart-wrap canvas { width: 100% !important; height: 100% !important; }
+
+/* Donuts: tamaño consistente y centrado, pero responsive */
+.donut-row canvas,
+.g13 canvas {
+  width: 220px !important;
+  height: 220px !important;
+  margin: 0 auto;
 }
+
+/* ✅ TABLAS RESPONSIVE: scroll horizontal suave en móvil */
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+
+  /* Clave: permite scroll horizontal sin romper el layout */
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  /* Si la tabla es muy ancha, se desplaza en móvil */
+  min-width: 680px;
+}
+.tbl thead { background: var(--negro); }
+.tbl thead, .tbl tbody { display: table; width: 100%; table-layout: auto; }
+.tbl tr { display: table; width: 100%; table-layout: fixed; }
+.tbl th, .tbl td { white-space: nowrap; }
+
+/* Una sombra sutil para indicar que hay scroll */
+.tbl { border-radius: 6px; }
+
+/* ═══════════ BARRA SUPERIOR INSTITUCIONAL ═══════════ */
+.topbar { background: var(--amarillo); height: 6px; width: 100%; }
 
 /* ═══════════ HEADER PRINCIPAL ═══════════ */
 .site-header {
@@ -82,14 +112,7 @@ body {
   gap: 28px;
 }
 
-/* Logo Duoc UC — recreado fielmente del manual */
-.duoc-logo {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  flex-shrink: 0;
-  text-decoration: none;
-}
+.duoc-logo { display: flex; align-items: center; gap: 0; flex-shrink: 0; text-decoration: none; }
 .logo-wordmark {
   font-family: var(--font-body);
   font-weight: 900;
@@ -123,12 +146,7 @@ body {
 }
 
 /* Navegación por pestañas */
-.site-nav {
-  display: flex;
-  gap: 2px;
-  flex: 1;
-  justify-content: center;
-}
+.site-nav { display: flex; gap: 2px; flex: 1; justify-content: center; }
 .nav-btn {
   font-family: var(--font-body);
   font-size: 11px;
@@ -144,14 +162,8 @@ body {
   transition: all 0.18s ease;
   white-space: nowrap;
 }
-.nav-btn:hover {
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.75);
-}
-.nav-btn.active {
-  background: var(--amarillo);
-  color: var(--negro);
-}
+.nav-btn:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75); }
+.nav-btn.active { background: var(--amarillo); color: var(--negro); }
 
 .header-meta {
   font-family: var(--font-body);
@@ -164,31 +176,17 @@ body {
   flex-shrink: 0;
 }
 
-/* ═══════════ HERO — franja amarilla del manual ═══════════ */
-.hero {
-  background: var(--amarillo);
-  overflow: hidden;
-  position: relative;
-}
+/* ═══════════ HERO ═══════════ */
+.hero { background: var(--amarillo); overflow: hidden; position: relative; }
 .hero-geo {
-  position: absolute;
-  right: -80px;
-  top: -60px;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.14);
-  pointer-events: none;
+  position: absolute; right: -80px; top: -60px;
+  width: 380px; height: 380px; border-radius: 50%;
+  background: rgba(255,255,255,0.14); pointer-events: none;
 }
 .hero-geo2 {
-  position: absolute;
-  right: 120px;
-  bottom: -120px;
-  width: 240px;
-  height: 240px;
-  border-radius: 50%;
-  background: rgba(0,0,0,0.05);
-  pointer-events: none;
+  position: absolute; right: 120px; bottom: -120px;
+  width: 240px; height: 240px; border-radius: 50%;
+  background: rgba(0,0,0,0.05); pointer-events: none;
 }
 .hero-inner {
   max-width: var(--max-w);
@@ -226,10 +224,7 @@ body {
   margin-bottom: 14px;
   max-width: 700px;
 }
-.hero h1 em {
-  font-style: italic;
-  font-weight: 300;
-}
+.hero h1 em { font-style: italic; font-weight: 300; }
 .hero-desc {
   font-family: var(--font-body);
   font-size: 15px;
@@ -239,11 +234,8 @@ body {
   line-height: 1.75;
 }
 
-/* ═══════════ BANDA KPI — negro ═══════════ */
-.kpi-band {
-  background: var(--negro-80);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
+/* ═══════════ BANDA KPI ═══════════ */
+.kpi-band { background: var(--negro-80); border-bottom: 1px solid rgba(255,255,255,0.06); }
 .kpi-inner {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -275,18 +267,11 @@ body {
   text-transform: uppercase;
   color: rgba(255,255,255,0.35);
 }
-.kpi-sub {
-  font-family: var(--font-body);
-  font-size: 11px;
-  color: rgba(255,255,255,0.45);
-  margin-top: 5px;
-  font-weight: 400;
-}
+.kpi-sub { font-family: var(--font-body); font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 5px; font-weight: 400; }
 
 /* ═══════════ PÁGINAS / SECCIONES ═══════════ */
 .page { display: none; }
 .page.active { display: block; }
-
 .page-inner {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -338,7 +323,7 @@ body {
 .g31 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
 .span2 { grid-column: span 2; }
 
-/* ═══════════ CARD — componente base ═══════════ */
+/* ═══════════ CARD ═══════════ */
 .card {
   background: var(--blanco);
   border: 1px solid var(--gris-borde);
@@ -346,6 +331,7 @@ body {
   border-radius: 2px 2px 4px 4px;
   padding: 24px;
   position: relative;
+  overflow: hidden; /* ✅ evita que algo se salga en móvil */
 }
 .card-title {
   font-family: var(--font-body);
@@ -391,36 +377,15 @@ body {
   text-transform: uppercase;
   color: var(--gris-s);
 }
-.stat-sub {
-  font-size: 12px;
-  color: var(--gris);
-  margin-top: 7px;
-  font-weight: 400;
-}
+.stat-sub { font-size: 12px; color: var(--gris); margin-top: 7px; font-weight: 400; }
 
 /* ═══════════ PROGRESS ═══════════ */
 .prog-list { display: flex; flex-direction: column; gap: 14px; }
-.prog-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-  font-size: 12px;
-}
+.prog-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 12px; gap: 10px; }
 .prog-meta .lbl { color: var(--gris); font-weight: 400; }
-.prog-meta .val { font-weight: 900; font-family: var(--font-body); }
-.prog-track {
-  height: 8px;
-  background: var(--gris-bg);
-  border-radius: 2px;
-  overflow: hidden;
-  border: 1px solid var(--gris-borde);
-}
-.prog-fill {
-  height: 100%;
-  border-radius: 2px;
-  animation: growBar 1s cubic-bezier(0.22,1,0.36,1) both;
-}
+.prog-meta .val { font-weight: 900; font-family: var(--font-body); text-align: right; }
+.prog-track { height: 8px; background: var(--gris-bg); border-radius: 2px; overflow: hidden; border: 1px solid var(--gris-borde); }
+.prog-fill { height: 100%; border-radius: 2px; animation: growBar 1s cubic-bezier(0.22,1,0.36,1) both; }
 @keyframes growBar { from { width: 0 !important; } }
 
 /* ═══════════ BARRA APILADA ═══════════ */
@@ -444,23 +409,11 @@ body {
   white-space: nowrap;
   padding: 0 6px;
 }
-.stacked-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-.sl {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  color: var(--gris);
-}
+.stacked-legend { display: flex; flex-wrap: wrap; gap: 14px; }
+.sl { display: flex; align-items: center; gap: 7px; font-size: 11px; color: var(--gris); }
 .sl-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
-/* ═══════════ TABLA ═══════════ */
-.tbl { width: 100%; border-collapse: collapse; }
-.tbl thead { background: var(--negro); }
+/* ═══════════ TABLA (estilos internos) ═══════════ */
 .tbl th {
   font-family: var(--font-body);
   font-size: 9px;
@@ -487,26 +440,8 @@ body {
 }
 .tbl tr:hover td { background: #FAFAFA; }
 .n { text-align: right; font-weight: 700; font-family: var(--font-body); }
-.tbl-chip {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 2px;
-}
-.badge {
-  display: inline-block;
-  font-family: var(--font-body);
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 2px;
-}
+.tbl-chip { display: inline-block; font-family: var(--font-body); font-size: 9px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 8px; border-radius: 2px; }
+.badge { display: inline-block; font-family: var(--font-body); font-size: 9px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; }
 
 /* ═══════════ DONUT ═══════════ */
 .donut-row { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
@@ -527,87 +462,35 @@ body {
   border-right: 1px solid var(--gris-borde);
   border-bottom: 1px solid var(--gris-borde);
 }
-.hl-label {
-  font-family: var(--font-body);
-  font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--hl-c, var(--gris-s));
-  margin-bottom: 10px;
-}
-.hl-num {
-  font-family: var(--font-title);
-  font-size: 40px;
-  font-weight: 900;
-  line-height: 1;
-  color: var(--hl-c, var(--negro));
-  margin-bottom: 8px;
-}
+.hl-label { font-family: var(--font-body); font-size: 9px; font-weight: 900; letter-spacing: 0.16em; text-transform: uppercase; color: var(--hl-c, var(--gris-s)); margin-bottom: 10px; }
+.hl-num { font-family: var(--font-title); font-size: 40px; font-weight: 900; line-height: 1; color: var(--hl-c, var(--negro)); margin-bottom: 8px; }
 .hl-desc { font-size: 12px; color: var(--gris); line-height: 1.7; }
 .hl-rows { margin-top: 14px; display: flex; flex-direction: column; }
-.hl-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  color: var(--gris);
-  padding: 6px 0;
-  border-top: 1px solid var(--gris-borde);
-}
+.hl-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--gris); padding: 6px 0; border-top: 1px solid var(--gris-borde); }
 .hl-row:first-child { border-top: none; padding-top: 0; }
 .hl-row strong { color: var(--negro); font-weight: 900; }
 
 /* ═══════════ TIMELINE ═══════════ */
 .timeline { display: flex; flex-direction: column; }
-.tl-item {
-  display: grid;
-  grid-template-columns: 80px 20px 1fr;
-  gap: 0 20px;
-  padding-bottom: 28px;
-}
+.tl-item { display: grid; grid-template-columns: 80px 20px 1fr; gap: 0 20px; padding-bottom: 28px; }
 .tl-item:last-child { padding-bottom: 0; }
-.tl-date {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--gris-s);
-  text-align: right;
-  padding-top: 2px;
-}
+.tl-date { font-family: var(--font-body); font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gris-s); text-align: right; padding-top: 2px; }
 .tl-axis { display: flex; flex-direction: column; align-items: center; }
 .tl-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  border: 3px solid var(--blanco);
+  width: 14px; height: 14px; border-radius: 50%;
+  flex-shrink: 0; border: 3px solid var(--blanco);
   box-shadow: 0 0 0 2px var(--dot-c, var(--amarillo));
   background: var(--dot-c, var(--amarillo));
   margin-top: 1px;
   position: relative;
   z-index: 1;
 }
-.tl-line {
-  width: 2px;
-  flex: 1;
-  background: var(--gris-borde);
-  margin-top: 4px;
-}
+.tl-line { width: 2px; flex: 1; background: var(--gris-borde); margin-top: 4px; }
 .tl-item:last-child .tl-line { display: none; }
-.tl-title {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 900;
-  color: var(--negro);
-  margin-bottom: 5px;
-  line-height: 1.3;
-}
+.tl-title { font-family: var(--font-body); font-size: 13px; font-weight: 900; color: var(--negro); margin-bottom: 5px; line-height: 1.3; }
 .tl-desc { font-size: 12px; color: var(--gris); line-height: 1.7; }
 
-/* ═══════════ PANEL IMPACTO (cronología) ═══════════ */
+/* ═══════════ PANEL IMPACTO ═══════════ */
 .impact-panel {
   background: var(--negro);
   border-radius: 3px;
@@ -640,34 +523,12 @@ body {
   color: rgba(255,255,255,0.3);
 }
 
-/* ═══════════ CHART CONTAINER ═══════════ */
-.chart-wrap { position: relative; width: 100%; height: 260px; }
-
-/* donut container cuadrado */
-.donut-canvas{
-  width: 180px;
-  height: 180px;
-  flex-shrink: 0;
-}
-.donut-canvas canvas{
-  width: 100% !important;
-  height: 100% !important;
-  display:block;
-}
-
 /* ═══════════ FADE IN ═══════════ */
-.fade-up {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
+.fade-up { opacity: 0; transform: translateY(16px); transition: opacity 0.4s ease, transform 0.4s ease; }
 .fade-up.show { opacity: 1; transform: translateY(0); }
 
 /* ═══════════ FOOTER ═══════════ */
-.site-footer {
-  background: var(--negro);
-  border-top: 3px solid var(--amarillo);
-}
+.site-footer { background: var(--negro); border-top: 3px solid var(--amarillo); }
 .footer-inner {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -677,20 +538,9 @@ body {
   justify-content: space-between;
   gap: 20px;
 }
-.footer-brand {
-  font-family: var(--font-body);
-  font-size: 11px;
-  color: rgba(255,255,255,0.3);
-}
+.footer-brand { font-family: var(--font-body); font-size: 11px; color: rgba(255,255,255,0.3); }
 .footer-brand strong { color: var(--amarillo); }
-.footer-web {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: rgba(255,255,255,0.2);
-  text-transform: uppercase;
-}
+.footer-web { font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: rgba(255,255,255,0.2); text-transform: uppercase; }
 
 /* ═══════════ RESPONSIVE ═══════════ */
 @media (max-width: 1024px) {
@@ -698,6 +548,7 @@ body {
   .g4 { grid-template-columns: 1fr 1fr; }
   .g13, .g31 { grid-template-columns: 1fr; }
 }
+
 @media (max-width: 768px) {
   :root { --pad-x: 20px; }
   .header-inner { gap: 12px; }
@@ -709,14 +560,17 @@ body {
   .impact-panel { grid-template-columns: 1fr; }
   .hero h1 { font-size: 26px; }
 
-  /* charts más altos en móvil */
-  .chart-wrap { height: 320px; }
+  /* ✅ Donuts alineados en móvil (evita que queden “corridos”) */
+  .donut-row { flex-direction: column; align-items: center; gap: 14px; }
+  .donut-legend { width: 100%; min-width: 0; }
 
-  /* donuts más grandes y centrados */
-  .donut-canvas{ width: 220px; height: 220px; margin: 0 auto; }
+  /* ✅ Tablas: padding y tipografía más compacta */
+  .tbl th, .tbl td { padding: 10px 10px; }
+  .tbl { min-width: 720px; } /* fuerza scroll para tablas grandes */
 
-  /* arreglo para grilla 4-col inline (NN) */
-  .nn-cards-4{ grid-template-columns: repeat(2, 1fr) !important; }
+  /* ✅ Valores de progress: evita que rompan el layout */
+  .prog-meta { flex-wrap: wrap; }
+  .prog-meta .val { width: 100%; text-align: left; }
 }
 
 /* ═══════════ NAV TOGGLE (MÓVIL) ═══════════ */
@@ -740,9 +594,11 @@ body {
   outline: 3px solid rgba(241,182,52,0.45);
   outline-offset: 2px;
 }
+
 @media (max-width: 768px) {
   .nav-toggle{ display:inline-flex; }
   .header-inner{ position:relative; }
+
   .site-nav{
     display:none;
     position:absolute;
@@ -765,37 +621,11 @@ body {
     padding: 12px 14px;
     border-radius: 8px;
   }
-  .header-meta{
-    margin-left:auto;
-    opacity:0.65;
-  }
+  .header-meta{ margin-left:auto; opacity:0.65; }
 }
-
-/* ===== TABLAS RESPONSIVE (NUEVO) ===== */
-.table-wrap{
-  width:100%;
-  overflow-x:auto;
-  -webkit-overflow-scrolling: touch;
-  border: 1px solid var(--gris-borde);
-  border-radius: 6px;
-}
-/* forzamos scroll horizontal si no cabe */
-.table-wrap .tbl{
-  min-width: 720px;
-}
-/* textos largos no rompen layout */
-.card, .tbl td{
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-@media (max-width: 768px){
-  .tbl th, .tbl td{ padding: 10px 10px; }
-  .tbl th{ font-size: 8px; }
-  .tbl td{ font-size: 11px; }
-}
-
 </style>
 </head>
+
 <body>
 
 <div class="topbar"></div>
@@ -866,9 +696,7 @@ body {
   </div>
 </div>
 
-<!-- =========================
-  PÁGINA: RESUMEN
-========================= -->
+<!-- PÁGINA: RESUMEN -->
 <div class="page active" id="page-resumen">
 <div class="page-inner">
 
@@ -880,72 +708,68 @@ body {
 
   <div class="card fade-up" style="--card-top:var(--negro)">
     <div class="card-title">Tabla maestra · tres áreas de gestión simultánea</div>
-
-    <!-- TABLE WRAP (NUEVO) -->
-    <div class="table-wrap">
-      <table class="tbl">
-        <thead>
-          <tr>
-            <th>Área</th>
-            <th class="n">Total</th>
-            <th class="n">Ingresados / Activos</th>
-            <th class="n">Pendientes / Descarte</th>
-            <th class="n">% Avance de ingresos</th>
-            <th>Período</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="tbl-chip" style="background:var(--azul-s);color:var(--azul)">LIC 2026-1</span>&ensp;Copias</td>
-            <td class="n">743</td>
-            <td class="n" style="color:var(--verde)"><strong>596</strong></td>
-            <td class="n" style="color:var(--rojo)">133 pend.</td>
-            <td class="n" style="color:var(--azul)"><strong>80,2%</strong></td>
-            <td style="color:var(--gris-s)">Corte 20/02/2026</td>
-          </tr>
-          <tr>
-            <td><span class="tbl-chip" style="background:var(--azul-s);color:var(--azul)">LIC 2026-1</span>&ensp;Títulos únicos</td>
-            <td class="n">107</td>
-            <td class="n" style="color:var(--verde)"><strong>94</strong></td>
-            <td class="n" style="color:var(--rojo)">13 pend.</td>
-            <td class="n" style="color:var(--azul)"><strong>87,9%</strong></td>
-            <td style="color:var(--gris-s)">Corte 20/02/2026</td>
-          </tr>
-          <tr>
-            <td><span class="tbl-chip" style="background:var(--purpura-s);color:var(--purpura)">BCN</span>&ensp;Total histórico ítems</td>
-            <td class="n">2.278</td>
-            <td class="n" style="color:var(--verde)"><strong>1.875 activos</strong></td>
-            <td class="n" style="color:var(--rojo)">325 desc. / 45 baja</td>
-            <td class="n" style="color:var(--purpura)"><strong>100%</strong></td>
-            <td style="color:var(--gris-s)">ABR/23 – MAR/24 → 2026</td>
-          </tr>
-          <tr>
-            <td><span class="tbl-chip" style="background:var(--purpura-s);color:var(--purpura)">BCN</span>&ensp;<strong>Ingresados 2025-2026</strong></td>
-            <td class="n">428</td>
-            <td class="n" style="color:var(--purpura)"><strong>118 (2025)/310 (2026)</strong></td>
-            <td class="n">—</td>
-            <td class="n">—</td>
-            <td style="color:var(--gris-s)">2025 – 2026</td>
-          </tr>
-          <tr>
-            <td><span class="tbl-chip" style="background:var(--naranja-s);color:var(--naranja)">PENDIENTES</span>&ensp;Licit. 2023–2024</td>
-            <td class="n">160</td>
-            <td class="n" style="color:var(--verde)"><strong>137 SYP</strong></td>
-            <td class="n" style="color:var(--rojo)">23 desc.</td>
-            <td class="n" style="color:var(--naranja)"><strong>100% auditado</strong></td>
-            <td style="color:var(--gris-s)">Feb 2026</td>
-          </tr>
-          <tr class="tr-total">
-            <td><strong>TOTAL PERÍODO</strong></td>
-            <td class="n">3.181</td>
-            <td class="n">1.161</td>
-            <td class="n">348 desc.</td>
-            <td class="n">—</td>
-            <td>ABR/2023 – FEB/2026</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Área</th>
+          <th class="n">Total</th>
+          <th class="n">Ingresados / Activos</th>
+          <th class="n">Pendientes / Descarte</th>
+          <th class="n">% Avance de ingresos</th>
+          <th>Período</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tbl-chip" style="background:var(--azul-s);color:var(--azul)">LIC 2026-1</span>&ensp;Copias</td>
+          <td class="n">743</td>
+          <td class="n" style="color:var(--verde)"><strong>596</strong></td>
+          <td class="n" style="color:var(--rojo)">133 pend.</td>
+          <td class="n" style="color:var(--azul)"><strong>80,2%</strong></td>
+          <td style="color:var(--gris-s)">Corte 20/02/2026</td>
+        </tr>
+        <tr>
+          <td><span class="tbl-chip" style="background:var(--azul-s);color:var(--azul)">LIC 2026-1</span>&ensp;Títulos únicos</td>
+          <td class="n">107</td>
+          <td class="n" style="color:var(--verde)"><strong>94</strong></td>
+          <td class="n" style="color:var(--rojo)">13 pend.</td>
+          <td class="n" style="color:var(--azul)"><strong>87,9%</strong></td>
+          <td style="color:var(--gris-s)">Corte 20/02/2026</td>
+        </tr>
+        <tr>
+          <td><span class="tbl-chip" style="background:var(--purpura-s);color:var(--purpura)">BCN</span>&ensp;Total histórico ítems</td>
+          <td class="n">2.278</td>
+          <td class="n" style="color:var(--verde)"><strong>1.875 activos</strong></td>
+          <td class="n" style="color:var(--rojo)">325 desc. / 45 baja</td>
+          <td class="n" style="color:var(--purpura)"><strong>100%</strong></td>
+          <td style="color:var(--gris-s)">ABR/23 – MAR/24 → 2026</td>
+        </tr>
+        <tr>
+          <td><span class="tbl-chip" style="background:var(--purpura-s);color:var(--purpura)">BCN</span>&ensp;<strong>Ingresados 2025-2026</strong></td>
+          <td class="n">428</td>
+          <td class="n" style="color:var(--purpura)"><strong>118 (2025)/310 (2026)</strong></td>
+          <td class="n">—</td>
+          <td class="n">—</td>
+          <td style="color:var(--gris-s)">2025 – 2026</td>
+        </tr>
+        <tr>
+          <td><span class="tbl-chip" style="background:var(--naranja-s);color:var(--naranja)">PENDIENTES</span>&ensp;Licit. 2023–2024</td>
+          <td class="n">160</td>
+          <td class="n" style="color:var(--verde)"><strong>137 SYP</strong></td>
+          <td class="n" style="color:var(--rojo)">23 desc.</td>
+          <td class="n" style="color:var(--naranja)"><strong>100% auditado</strong></td>
+          <td style="color:var(--gris-s)">Feb 2026</td>
+        </tr>
+        <tr class="tr-total">
+          <td><strong>TOTAL PERÍODO</strong></td>
+          <td class="n">3.181</td>
+          <td class="n">1.161</td>
+          <td class="n">348 desc.</td>
+          <td class="n">—</td>
+          <td>ABR/2023 – FEB/2026</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="g2">
@@ -978,7 +802,7 @@ body {
           <div class="prog-track">
             <div class="prog-fill" style="width:82.3%;background:var(--purpura);animation-delay:.16s"></div>
           </div>
-        </div>
+          </div>
         <div class="prog-row">
           <div class="prog-meta">
             <span class="lbl">BCN · ítems con circulaciones</span>
@@ -1003,9 +827,7 @@ body {
     <div class="card fade-up">
       <div class="card-title">Distribución del total gestionado (3.181 ítems)</div>
       <div class="donut-row" style="margin-top:12px">
-        <!-- DONUT WRAP (NUEVO) -->
-        <div class="donut-canvas"><canvas id="donut-resumen"></canvas></div>
-
+        <canvas id="donut-resumen"></canvas>
         <div class="donut-legend">
           <div class="dleg">
             <div class="dleg-dot" style="background:var(--azul)"></div>
@@ -1036,9 +858,7 @@ body {
 </div>
 </div>
 
-<!-- =========================
-  PÁGINA: LICITACIÓN 2026-1
-========================= -->
+<!-- PÁGINA: LICITACIÓN 2026-1 -->
 <div class="page" id="page-licitacion">
 <div class="page-inner">
 
@@ -1132,12 +952,9 @@ body {
   <div class="card fade-up" style="--card-top:var(--azul)">
     <div class="card-title">Estado de NN</div>
     <div class="g13">
-
-      <!-- DONUT WRAP (NUEVO) -->
-      <div class="donut-canvas"><canvas id="donut-nn"></canvas></div>
-
+      <canvas id="donut-nn"></canvas>
       <div>
-        <div class="nn-cards-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
           <div style="text-align:center;background:var(--verde-s);border-top:3px solid var(--verde);border-radius:3px;padding:14px">
             <div style="font-family:'Merriweather',serif;font-size:32px;font-weight:900;color:var(--verde)">94</div>
             <div style="font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-s)">Ingresados</div>
@@ -1155,34 +972,29 @@ body {
             <div style="font-size:9px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--gris-s)">Pend. SIDOC</div>
           </div>
         </div>
-
-        <!-- TABLE WRAP (NUEVO) -->
-        <div class="table-wrap">
-          <table class="tbl">
-            <thead>
-              <tr><th>NN</th><th>No. Control</th><th>Título</th><th>Sedes</th><th>Motivo</th><th>Estado</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="color:var(--azul);font-weight:900">NN1779</td>
-                <td style="color:var(--gris)">a55261</td>
-                <td>Marketing digital: estrategia, implementación y práctica</td>
-                <td style="color:var(--gris-s)">CO · MA · PA</td>
-                <td>Reposición en marzo</td>
-                <td><span class="badge" style="background:var(--naranja-s);color:var(--naranja)">En gestión</span></td>
-              </tr>
-              <tr>
-                <td style="color:var(--azul);font-weight:900">NN1947</td>
-                <td style="color:var(--gris)">a55229</td>
-                <td>Liderazgo coactivo</td>
-                <td style="color:var(--gris-s)">CO · ME · PO · SB</td>
-                <td>Copias mal impresas</td>
-                <td><span class="badge" style="background:var(--rojo-s);color:var(--rojo)">Reclamado</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
+        <table class="tbl">
+          <thead>
+            <tr><th>NN</th><th>No. Control</th><th>Título</th><th>Sedes</th><th>Motivo</th><th>Estado</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--azul);font-weight:900">NN1779</td>
+              <td style="color:var(--gris)">a55261</td>
+              <td>Marketing digital: estrategia, implementación y práctica</td>
+              <td style="color:var(--gris-s)">CO · MA · PA</td>
+              <td>Reposición en marzo</td>
+              <td><span class="badge" style="background:var(--naranja-s);color:var(--naranja)">En gestión</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--azul);font-weight:900">NN1947</td>
+              <td style="color:var(--gris)">a55229</td>
+              <td>Liderazgo coactivo</td>
+              <td style="color:var(--gris-s)">CO · ME · PO · SB</td>
+              <td>Copias mal impresas</td>
+              <td><span class="badge" style="background:var(--rojo-s);color:var(--rojo)">Reclamado</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -1190,9 +1002,7 @@ body {
 </div>
 </div>
 
-<!-- =========================
-  PÁGINA: DONACIÓN BCN
-========================= -->
+<!-- PÁGINA: DONACIÓN BCN -->
 <div class="page" id="page-bcn">
 <div class="page-inner">
 
@@ -1229,8 +1039,7 @@ body {
             <span>310 ítems</span>
           </div>
         </div>
-      </div>
-    </div>
+        </div>
   </div>
 
   <div class="g4">
@@ -1269,8 +1078,8 @@ body {
       📌 Los 1.850 ítems de 2023–2024 fueron ingresados antes de la gestión activa del área. En 2025–2026 se procesaron 428 ítems adicionales y se completó la <strong>catalogación bibliográfica de </strong>
     </div>
   </div>
+    </div>
 
-  <div class="g2">
     <div class="card fade-up" style="--card-top:var(--purpura)">
       <div class="card-title">Estado actual de la colección BCN</div>
       <div class="prog-list" style="margin-top:4px">
@@ -1296,53 +1105,52 @@ body {
         </div>
       </div>
     </div>
+  </div>
 
+  <div class="g2">
     <div class="card fade-up" style="--card-top:var(--rojo)">
       <div class="card-title">Primer descarte · motivos de rechazo (251 ítems · 28/01–06/02/2026)</div>
       <div class="chart-wrap" style="height:210px">
         <canvas id="chart-descarte"></canvas>
       </div>
     </div>
-  </div>
 
-  <div class="card fade-up" style="--card-top:var(--purpura)">
-    <div class="card-title">Etapas de donación BCN</div>
-    <div class="donut-row" style="margin-bottom:16px">
-      <!-- DONUT WRAP (NUEVO) -->
-      <div class="donut-canvas"><canvas id="donut-etapas"></canvas></div>
-
-      <div class="donut-legend">
-        <div class="dleg">
-          <div class="dleg-dot" style="background:#5A2E8E"></div>
-          <div>
-            <div class="dleg-label">ABR/2023 — 1ª etapa</div>
-            <div class="dleg-val" style="color:#5A2E8E">1.152 <span style="font-size:13px;color:var(--gris-s);font-weight:400">50,6%</span></div>
+    <div class="card fade-up" style="--card-top:var(--purpura)">
+      <div class="card-title">Etapas de donación BCN</div>
+      <div class="donut-row" style="margin-bottom:16px">
+        <canvas id="donut-etapas"></canvas>
+        <div class="donut-legend">
+          <div class="dleg">
+            <div class="dleg-dot" style="background:#5A2E8E"></div>
+            <div>
+              <div class="dleg-label">ABR/2023 — 1ª etapa</div>
+              <div class="dleg-val" style="color:#5A2E8E">1.152 <span style="font-size:13px;color:var(--gris-s);font-weight:400">50,6%</span></div>
+            </div>
           </div>
-        </div>
-        <div class="dleg">
-          <div class="dleg-dot" style="background:var(--celeste)"></div>
-          <div>
-            <div class="dleg-label">ENE/2024 — 2ª etapa</div>
-            <div class="dleg-val" style="color:var(--celeste)">9 <span style="font-size:13px;color:var(--gris-s);font-weight:400">0,4%</span></div>
+          <div class="dleg">
+            <div class="dleg-dot" style="background:var(--celeste)"></div>
+            <div>
+              <div class="dleg-label">ENE/2024 — 2ª etapa</div>
+              <div class="dleg-val" style="color:var(--celeste)">9 <span style="font-size:13px;color:var(--gris-s);font-weight:400">0,4%</span></div>
+            </div>
           </div>
-        </div>
-        <div class="dleg">
-          <div class="dleg-dot" style="background:var(--purpura)"></div>
-          <div>
-            <div class="dleg-label">MAR/2024 — 3ª etapa</div>
-            <div class="dleg-val" style="color:var(--purpura)">1.117 <span style="font-size:13px;color:var(--gris-s);font-weight:400">49,0%</span></div>
+          <div class="dleg">
+            <div class="dleg-dot" style="background:var(--purpura)"></div>
+            <div>
+              <div class="dleg-label">MAR/2024 — 3ª etapa</div>
+              <div class="dleg-val" style="color:var(--purpura)">1.117 <span style="font-size:13px;color:var(--gris-s);font-weight:400">49,0%</span></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div style="background:var(--gris-bg);border-radius:3px;padding:16px;border:1px solid var(--gris-borde)">
-      <div style="font-size:9px;font-weight:900;color:var(--gris-s);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px">Circulaciones por año de ingreso del ítem</div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2023</span><span style="font-weight:900;color:var(--verde)">5.803 préstamos</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2024</span><span style="font-weight:900;color:var(--verde)">991 préstamos</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2025</span><span style="font-weight:900">84 préstamos</span></div>
-        <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Ítems ingresados 2026</span><span style="font-weight:900">1 préstamo</span></div>
+      <div style="background:var(--gris-bg);border-radius:3px;padding:16px;border:1px solid var(--gris-borde)">
+        <div style="font-size:9px;font-weight:900;color:var(--gris-s);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px">Circulaciones por año de ingreso del ítem</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2023</span><span style="font-weight:900;color:var(--verde)">5.803 préstamos</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2024</span><span style="font-weight:900;color:var(--verde)">991 préstamos</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;border-bottom:1px solid var(--gris-borde);padding-bottom:5px"><span style="color:var(--gris)">Ítems ingresados 2025</span><span style="font-weight:900">84 préstamos</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px"><span style="color:var(--gris)">Ítems ingresados 2026</span><span style="font-weight:900">1 préstamo</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1350,9 +1158,7 @@ body {
 </div>
 </div>
 
-<!-- =========================
-  PÁGINA: PENDIENTES 2023-2024
-========================= -->
+<!-- PÁGINA: PENDIENTES 2023-2024 -->
 <div class="page" id="page-pendientes">
 <div class="page-inner">
 
@@ -1372,49 +1178,45 @@ body {
   <div class="g2">
     <div class="card fade-up" style="--card-top:var(--naranja)">
       <div class="card-title">Detalle por licitación</div>
-
-      <!-- TABLE WRAP (NUEVO) -->
-      <div class="table-wrap">
-        <table class="tbl">
-          <thead>
-            <tr><th>Licitación</th><th class="n">Total</th><th class="n">Ingr. SYP</th><th class="n">Descarte</th><th class="n">Listo</th><th class="n">NO</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Licitación 2023</td>
-              <td class="n">19</td>
-              <td class="n" style="color:var(--verde)"><strong>16</strong></td>
-              <td class="n" style="color:var(--verde)"><strong>3</strong></td>
-              <td class="n" style="color:var(--verde)"><strong>16</strong></td>
-              <td class="n" style="color:var(--rojo)">0</td>
-            </tr>
-            <tr>
-              <td>Licitación 2024</td>
-              <td class="n">75</td>
-              <td class="n">59</td>
-              <td class="n" style="color:var(--rojo)"><strong>16</strong></td>
-              <td class="n" style="color:var(--verde)"><strong>59</strong></td>
-              <td class="n" style="color:var(--rojo)">0</td>
-            </tr>
-            <tr>
-              <td>Sin Licitación</td>
-              <td class="n">66</td>
-              <td class="n" style="color:var(--verde)"><strong>61</strong></td>
-              <td class="n" style="color:var(--naranja)">5</td>
-              <td class="n" style="color:var(--verde)"><strong>61</strong></td>
-              <td class="n" style="color:var(--rojo)">0</td>
-            </tr>
-            <tr class="tr-total">
-              <td>TOTAL</td>
-              <td class="n">160</td>
-              <td class="n">137</td>
-              <td class="n">23</td>
-              <td class="n">137</td>
-              <td class="n">0</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <table class="tbl">
+        <thead>
+          <tr><th>Licitación</th><th class="n">Total</th><th class="n">Ingr. SYP</th><th class="n">Descarte</th><th class="n">Listo</th><th class="n">NO</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Licitación 2023</td>
+            <td class="n">19</td>
+            <td class="n" style="color:var(--verde)"><strong>16</strong></td>
+            <td class="n" style="color:var(--verde)"><strong>3</strong></td>
+            <td class="n" style="color:var(--verde)"><strong>16</strong></td>
+            <td class="n" style="color:var(--rojo)">0</td>
+          </tr>
+          <tr>
+            <td>Licitación 2024</td>
+            <td class="n">75</td>
+            <td class="n">59</td>
+            <td class="n" style="color:var(--rojo)"><strong>16</strong></td>
+            <td class="n" style="color:var(--verde)"><strong>59</strong></td>
+            <td class="n" style="color:var(--rojo)">0</td>
+          </tr>
+          <tr>
+            <td>Sin Licitación</td>
+            <td class="n">66</td>
+            <td class="n" style="color:var(--verde)"><strong>61</strong></td>
+            <td class="n" style="color:var(--naranja)">5</td>
+            <td class="n" style="color:var(--verde)"><strong>61</strong></td>
+            <td class="n" style="color:var(--rojo)">0</td>
+          </tr>
+          <tr class="tr-total">
+            <td>TOTAL</td>
+            <td class="n">160</td>
+            <td class="n">137</td>
+            <td class="n">23</td>
+            <td class="n">137</td>
+            <td class="n">0</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="card fade-up" style="--card-top:var(--naranja)">
@@ -1445,9 +1247,7 @@ body {
 </div>
 </div>
 
-<!-- =========================
-  PÁGINA: CRONOLOGÍA
-========================= -->
+<!-- PÁGINA: CRONOLOGÍA -->
 <div class="page" id="page-cronologia">
 <div class="page-inner">
 
@@ -1478,6 +1278,7 @@ body {
           <div class="tl-axis"><div class="tl-dot" style="--dot-c:var(--purpura)"></div><div class="tl-line"></div></div>
           <div><div class="tl-title">3ª Etapa Donación BCN — <span style="color:var(--purpura)">1.117 ítems</span></div>
           <div class="tl-desc"> Proceso completo de ingreso y distribución. La colección BCN alcanza 2.278 ítems en total histórico.</div></div>
+        </div>
         </div>
         <div class="tl-item">
           <div class="tl-date">ENE–FEB 2026</div>
@@ -1548,8 +1349,15 @@ function showPage(id, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   btn.classList.add('active');
+
   window.scrollTo({ top: document.querySelector('.kpi-band').offsetTop - 64, behavior: 'smooth' });
-  setTimeout(() => { buildCharts(); revealFadeUps(); }, 80);
+
+  // ✅ rebuild + resize al mostrar (en móvil evita que el canvas quede mal calculado)
+  setTimeout(() => {
+    buildCharts();
+    resizeAllCharts();
+    revealFadeUps();
+  }, 120);
 }
 
 /* ── Fade ups ── */
@@ -1561,14 +1369,28 @@ function revealFadeUps() {
 window.addEventListener('scroll', revealFadeUps);
 setTimeout(revealFadeUps, 300);
 
-/* ── Chart.js — configuración de marca Duoc UC ── */
+/* ── Chart.js defaults ── */
 Chart.defaults.color = '#666666';
 Chart.defaults.font.family = "'Lato', Arial, sans-serif";
 Chart.defaults.font.size = 11;
 Chart.defaults.plugins.legend.display = false;
 
 const gridCfg = { color: 'rgba(0,0,0,0.06)', drawBorder: false };
-const cs = {};
+const cs = {}; // chart store
+
+function destroyChart(id) {
+  if (cs[id]) { cs[id].destroy(); delete cs[id]; }
+}
+
+/* ✅ resize helper (móvil/orientación/tabs) */
+function resizeAllCharts(){
+  Object.keys(cs).forEach(k => { try { cs[k].resize(); } catch(e){} });
+}
+window.addEventListener('resize', () => {
+  // pequeño debounce
+  clearTimeout(window.__rzT);
+  window.__rzT = setTimeout(resizeAllCharts, 120);
+});
 
 function buildCharts() {
 
@@ -1587,7 +1409,7 @@ function buildCharts() {
       options: {
         cutout: '68%',
         responsive: true,
-        maintainAspectRatio: false, /* NUEVO */
+        maintainAspectRatio: false,  // ✅ clave en móvil
         plugins: {
           legend: { display: false },
           tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw.toLocaleString('es-CL')} ítems` }}
@@ -1607,7 +1429,7 @@ function buildCharts() {
       options: {
         cutout:'65%',
         responsive:true,
-        maintainAspectRatio:false, /* NUEVO */
+        maintainAspectRatio:false, // ✅
         plugins: {
           legend: { display:true, position:'bottom',
             labels:{color:'#666',padding:14,boxWidth:12,font:{size:11,weight:'700'}}},
@@ -1625,6 +1447,7 @@ function buildCharts() {
                    'Ene 26','Feb 26'];
     const pre  = [43,15,1,153,296,103,115,217,191,87,228,194,152,55,0,0,0,0,0,0,0,0];
     const gest = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,15,1,11,74,7,10,265,45];
+
     cs['chart-mensual'] = new Chart(document.getElementById('chart-mensual'), {
       type:'bar',
       data:{
@@ -1635,12 +1458,11 @@ function buildCharts() {
         ]
       },
       options:{
-        responsive:true,
-        maintainAspectRatio:false,
+        responsive:true, maintainAspectRatio:false,
         plugins:{ legend:{ display:true, position:'top',
           labels:{color:'#666',padding:16,boxWidth:12,font:{size:11,weight:'700'}}}},
         scales:{
-          x:{ grid:gridCfg, ticks:{ maxRotation:40, minRotation:30 }},
+          x:{ grid:gridCfg, ticks:{ maxRotation:40, minRotation:30, autoSkip: true, maxTicksLimit: 10 } },
           y:{ grid:gridCfg, beginAtZero:true, ticks:{ precision:0 }}
         }
       }
@@ -1679,8 +1501,9 @@ function buildCharts() {
         datasets:[{ data:[1152,9,1117], backgroundColor:['#5A2E8E','#7EBFE6','#9B50C0'], borderWidth:3, borderColor:'#FFF' }]
       },
       options:{
-        cutout:'58%', responsive:true,
-        maintainAspectRatio:false, /* NUEVO */
+        cutout:'58%',
+        responsive:true,
+        maintainAspectRatio:false, // ✅
         plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx=>`${ctx.label}: ${ctx.raw.toLocaleString('es-CL')}` }}}
       }
     });
@@ -1695,7 +1518,9 @@ function buildCharts() {
         datasets:[{ data:[137,23], backgroundColor:['#6DAC3B','#BB0034'], borderWidth:3, borderColor:'#FFF' }]
       },
       options:{
-        cutout:'56%', responsive:true, maintainAspectRatio:false,
+        cutout:'56%',
+        responsive:true,
+        maintainAspectRatio:false,
         plugins:{
           legend:{ display:true, position:'right',
             labels:{color:'#666',padding:12,boxWidth:12,font:{size:11,weight:'700'}}},
@@ -1744,6 +1569,7 @@ document.addEventListener('DOMContentLoaded', () => {
   btn.addEventListener('click', () => {
     const open = nav.classList.toggle('is-open');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    setTimeout(resizeAllCharts, 120); // ✅ por si el header cambia alto
   });
 
   document.addEventListener('click', (e) => {
@@ -1767,6 +1593,7 @@ showPage = function(id, btn){
 };
 
 buildCharts();
+setTimeout(resizeAllCharts, 200);
 </script>
 </body>
 </html>
