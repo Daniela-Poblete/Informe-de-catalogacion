@@ -358,6 +358,9 @@ body {
 .g13 { display: grid; grid-template-columns: 1fr 2.4fr; gap: 20px; align-items: start; }
 .g31 { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
 .span2 { grid-column: span 2; }
+/* CRÍTICO: todos los hijos directos de grid necesitan min-width:0 para que
+   overflow-x funcione en tablas y otros contenidos anchos */
+.g2 > *, .g3 > *, .g4 > *, .g13 > *, .g31 > * { min-width: 0; }
 
 /* ═══════════ CARD — componente base ═══════════ */
 .card {
@@ -367,6 +370,8 @@ body {
   border-radius: 2px 2px 4px 4px;
   padding: 24px;
   position: relative;
+  min-width: 0; /* fix: evita overflow en grid */
+  overflow: visible; /* permite scroll interno de tablas */
 }
 .card-title {
   font-family: var(--font-body);
@@ -481,21 +486,43 @@ body {
 .sl-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
 
 /* ═══════════ TABLA ═══════════ */
-.tbl-scroll { position: relative; }
-.tbl-scroll::after {
-  content: '';
-  display: none;
+/* Scroll horizontal siempre activo — el contenido decide si hace falta */
+.tbl-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  /* Evitar que el border-radius del card padre corte el scroll */
+  position: relative;
 }
+.tbl-scroll .tbl {
+  min-width: 520px;
+}
+.tbl-scroll-nn {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+}
+.tbl-scroll-nn .tbl {
+  min-width: 460px;
+}
+/* Indicador visual de scroll en móvil */
 @media (max-width: 600px) {
-  .tbl-scroll { 
-    overflow-x: auto; 
-    -webkit-overflow-scrolling: touch;
-    border-radius: 4px;
+  .tbl-scroll,
+  .tbl-scroll-nn {
+    border-radius: 3px;
     border: 1px solid var(--gris-borde);
+    /* Sombra derecha como hint de scroll */
+    background:
+      linear-gradient(to right, white 30%, rgba(255,255,255,0)),
+      linear-gradient(to right, rgba(255,255,255,0), white 70%) 0 100%,
+      radial-gradient(farthest-side at 0% 50%, rgba(0,0,0,0.08), rgba(0,0,0,0)),
+      radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,0.08), rgba(0,0,0,0)) 0 100%;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: 40px 100%, 40px 100%, 12px 100%, 12px 100%;
+    background-position: 0 0, 100%, 0 0, 100%;
+    background-attachment: local, local, scroll, scroll;
   }
-  .tbl-scroll .tbl { min-width: 560px; }
-  .tbl-scroll-nn { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .tbl-scroll-nn .tbl { min-width: 440px; }
 }
 .tbl { width: 100%; border-collapse: collapse; }
 .tbl thead { background: var(--negro); }
@@ -682,8 +709,11 @@ body {
   color: rgba(255,255,255,0.3);
 }
 
-@media (max-width: 600px) {
-  .chart-pendientes-wrap { height: 240px !important; }
+@media (max-width: 768px) {
+  .chart-pendientes-wrap { height: 260px !important; }
+}
+@media (max-width: 480px) {
+  .chart-pendientes-wrap { height: 230px !important; }
 }
 
 /* ═══════════ NN LAYOUT ═══════════ */
@@ -693,6 +723,10 @@ body {
   gap: 24px;
   align-items: start;
 }
+/* CRÍTICO: sin min-width:0 los hijos de grid no permiten overflow-x en tablas */
+.nn-layout > * { min-width: 0; }
+.nn-detail { min-width: 0; width: 100%; }
+
 @media (max-width: 768px) {
   .nn-layout {
     grid-template-columns: 1fr;
@@ -799,10 +833,6 @@ body {
   .impact-panel { grid-template-columns: 1fr 1fr; }
   .hero h1 { font-size: 26px; }
 
-  /* Tablas: scroll horizontal */
-  .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .tbl-scroll .tbl { min-width: 540px; }
-
   /* Donut responsivo */
   .donut-row { flex-direction: column; align-items: center; gap: 18px; }
   .donut-legend { width: 100%; }
@@ -844,9 +874,7 @@ body {
   /* Grillas de stats: 2 columnas en móvil */
   .g4 { grid-template-columns: 1fr 1fr; gap: 10px; }
 
-  /* Tabla maestra: scroll obligatorio */
-  .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--gris-borde); border-radius: 4px; }
-  .tbl-scroll .tbl { min-width: 600px; }
+  /* Tabla: padding más compacto en móvil */
   .tbl th, .tbl td { padding: 8px 10px; font-size: 11px; }
 
   /* Barra apilada */
@@ -896,10 +924,6 @@ body {
   .footer-inner { flex-direction: column; align-items: flex-start; gap: 6px; padding: 14px var(--pad-x); }
   .footer-brand { font-size: 10px; }
   .footer-web { font-size: 10px; }
-
-  /* Tabla NN en móvil: reducir columnas visibles */
-  .tbl-scroll-nn { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .tbl-scroll-nn .tbl { min-width: 480px; }
 
   /* Mini stats grid dentro de cards */
   .mini-stats-4 { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
