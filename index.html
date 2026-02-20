@@ -682,6 +682,51 @@ body {
   color: rgba(255,255,255,0.3);
 }
 
+@media (max-width: 600px) {
+  .chart-pendientes-wrap { height: 240px !important; }
+}
+
+/* ═══════════ NN LAYOUT ═══════════ */
+.nn-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .nn-layout {
+    grid-template-columns: 1fr;
+  }
+  .nn-donut { justify-content: center; }
+}
+@media (max-width: 480px) {
+  .nn-layout { gap: 16px; }
+  .nn-donut canvas { width: 150px !important; height: 150px !important; }
+}
+
+/* ═══════════ HALLAZGOS (g2 forzado) ═══════════ */
+.hallazgos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 600px) {
+  .hallazgos-grid { grid-template-columns: 1fr; }
+}
+
+/* ═══════════ FACTURACIÓN MINI STATS ═══════════ */
+.fact-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+@media (max-width: 480px) {
+  .fact-stats { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .fact-stats > div { padding: 10px 6px !important; }
+  .fact-stats > div > div:first-child { font-size: 24px !important; }
+}
+
 /* ═══════════ CHART CONTAINER ═══════════ */
 .chart-wrap { position: relative; }
 
@@ -1262,7 +1307,7 @@ body {
           <div class="sl"><div class="sl-dot" style="background:var(--rojo)"></div>No llegará: 4 (0,5%)</div>
         </div>
       </div>
-      <div class="mini-stats-4" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px">
+      <div class="fact-stats">
         <div style="text-align:center;background:var(--verde-s);border-top:3px solid var(--verde);border-radius:3px;padding:16px">
           <div style="font-family:'Merriweather',serif;font-size:34px;font-weight:900;color:var(--verde)">606</div>
           <div style="font-family:'Lato',sans-serif;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--gris-s)">Facturados</div>
@@ -1282,11 +1327,11 @@ body {
   <!-- NN -->
   <div class="card fade-up" style="--card-top:var(--azul)">
     <div class="card-title">Estado de NN</div>
-    <div class="g13" style="align-items:start">
-      <div style="display:flex;justify-content:center">
+    <div class="nn-layout">
+      <div class="nn-donut" style="display:flex;justify-content:center;align-items:center">
         <canvas id="donut-nn" width="175" height="175"></canvas>
       </div>
-      <div>
+      <div class="nn-detail">
         <div class="mini-stats-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
           <div style="text-align:center;background:var(--verde-s);border-top:3px solid var(--verde);border-radius:3px;padding:14px">
             <div style="font-family:'Merriweather',serif;font-size:32px;font-weight:900;color:var(--verde)">94</div>
@@ -1329,10 +1374,10 @@ body {
             </tr>
           </tbody>
         </table>
-        </div>
-      </div>
-    </div>
-  </div>
+        </div><!-- /tbl-scroll-nn -->
+      </div><!-- /nn-detail -->
+    </div><!-- /nn-layout -->
+  </div><!-- /card NN -->
 
 </div>
 </div>
@@ -1572,7 +1617,7 @@ body {
     <!-- Donut estado -->
     <div class="card fade-up" style="--card-top:var(--naranja)">
       <div class="card-title">Estado general de los 160 ítems auditados</div>
-      <div class="chart-wrap" style="height:200px">
+      <div class="chart-wrap chart-pendientes-wrap" style="height:200px">
         <canvas id="chart-pendientes"></canvas>
       </div>
     </div>
@@ -1581,7 +1626,7 @@ body {
   <!-- Análisis -->
   <div class="card fade-up" style="--card-top:var(--naranja)">
     <div class="card-title">Hallazgos clave de la auditoría</div>
-    <div class="g3">
+    <div class="hallazgos-grid">
       <div style="background:var(--rojo-s);border-top:3px solid var(--rojo);border-radius:3px;padding:18px">
         <div style="font-size:9px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--rojo);margin-bottom:10px">Licitación 2024</div>
         <div style="font-family:'Merriweather',serif;font-size:30px;font-weight:900;color:var(--rojo)">21,3%</div>
@@ -1593,7 +1638,7 @@ body {
         <div style="font-size:12px;color:var(--gris);margin-top:8px;line-height:1.7">Sin información en planillas 2023–2025. Trazabilidad resuelta: 5 a descarte, 4 ingresados SYP al cierre.</div>
       </div>
     </div>
-    <div class="card-note" style="margin-top:0">📌 La auditoría resolvió la trazabilidad completa de 160 ítems rezagados, documentando el estado, motivo y resolución de cada uno, dejando el área completamente saneada al cierre de la gestión.</div>
+    <div class="card-note" style="margin-top:16px">📌 La auditoría resolvió la trazabilidad completa de 160 ítems rezagados, documentando el estado, motivo y resolución de cada uno, dejando el área completamente saneada al cierre de la gestión.</div>
   </div>
 
 </div>
@@ -1872,6 +1917,7 @@ function buildCharts() {
 
   /* ─ ESTADO PENDIENTES ─ */
   if (document.getElementById('chart-pendientes') && !cs['chart-pendientes']) {
+    const isMobile = window.innerWidth < 600;
     cs['chart-pendientes'] = new Chart(document.getElementById('chart-pendientes'), {
       type:'doughnut',
       data:{
@@ -1881,7 +1927,7 @@ function buildCharts() {
       options:{
         cutout:'56%', responsive:true, maintainAspectRatio:false,
         plugins:{
-          legend:{ display:true, position:'right',
+          legend:{ display:true, position: isMobile ? 'bottom' : 'right',
             labels:{color:'#666',padding:12,boxWidth:12,font:{size:11,weight:'700'}}},
           tooltip:{ callbacks:{ label: ctx=>`${ctx.label}: ${ctx.raw}` }}
         }
